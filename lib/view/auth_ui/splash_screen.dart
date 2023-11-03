@@ -48,9 +48,9 @@ class _SplashScreenState extends State<SplashScreen> {
                 ),
                 Container(
                   margin: EdgeInsets.only(bottom: 30.0.h),
-                  width: Get.width.w,
+                  width: Get.width,
                   alignment: Alignment.center,
-                  child: CircularProgressIndicator(
+                  child: const CircularProgressIndicator(
                     color: Color(0xFF1F41BB),
                   ),
                 )
