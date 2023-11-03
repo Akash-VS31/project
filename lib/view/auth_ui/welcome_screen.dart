@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
-
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
 
@@ -40,14 +38,14 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 width: 343.w,
                 child: Text('Discover Your \nDream Deal here',
                     textAlign: TextAlign.center,
-                    style: GoogleFonts.poppins(
-                      textStyle: const TextStyle(
+                    style: TextStyle(
                         color: Color(0xFF1F41BB),
-                        fontSize: 35,
+                        fontFamily: 'Poppins',
+                        fontSize: 35.sp,
                         fontWeight: FontWeight.w600,
                         height: 0,
                       ),
-                    )),
+                    ),
               ),
               SizedBox(
                 height: 23.h,
@@ -57,14 +55,14 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 child: Text(
                     'Explore all the existing job roles based on your \ninterest and study major',
                     textAlign: TextAlign.center,
-                    style: GoogleFonts.poppins(
-                      textStyle: const TextStyle(
+                    style: TextStyle(
                         color: Colors.black,
-                        fontSize: 14,
+                        fontFamily: 'Poppins',
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.w400,
                         height: 0,
                       ),
-                    )),
+                    ),
               ),
               SizedBox(
                 height: 88.h,
@@ -85,14 +83,14 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       onPressed: () {},
                       child: Text('Login',
                           textAlign: TextAlign.center,
-                          style: GoogleFonts.poppins(
-                            textStyle: const TextStyle(
+                          style: TextStyle(
                               color: Colors.white,
-                              fontSize: 20,
+                              fontFamily: 'Poppins',
+                              fontSize: 20.sp,
                               fontWeight: FontWeight.w600,
                               height: 0,
                             ),
-                          )),
+                          ),
                     ),
                   ),
                   SizedBox(width: 20.w,),
@@ -111,14 +109,14 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       onPressed: () {},
                       child: Text('Register',
                           textAlign: TextAlign.center,
-                          style: GoogleFonts.poppins(
-                            textStyle: const TextStyle(
+                          style: TextStyle(
                               color: Colors.white,
-                              fontSize: 20,
+                              fontFamily: 'Poppins',
+                              fontSize: 20.sp,
                               fontWeight: FontWeight.w600,
                               height: 0,
                             ),
-                          )),
+                          ),
                     ),
                   )
                 ]),

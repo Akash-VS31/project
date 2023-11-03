@@ -14,20 +14,27 @@ class _SignInScreenState extends State<SignInScreen> {
   Widget getTextField({required String hint, required var icons}) {
     return TextFormField(
       decoration: InputDecoration(
-        prefixIcon: icons,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.r),
-          borderSide: const BorderSide(color: Colors.transparent, width: 0),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.r),
-          borderSide: const BorderSide(color: Colors.transparent, width: 0),
-        ),
-        contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
-        filled: true,
-        fillColor: const Color(0xFFF1F4FF),
-        hintText: hint,
-      ),
+          prefixIcon: icons,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.r),
+            borderSide: const BorderSide(color: Colors.transparent, width: 0),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.r),
+            borderSide: const BorderSide(color: Colors.transparent, width: 0),
+          ),
+          contentPadding:
+              EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
+          filled: true,
+          fillColor: const Color(0xFFF1F4FF),
+          hintText: hint,
+          hintStyle: TextStyle(
+            color: Colors.black54,
+            fontFamily: 'Poppins',
+            fontSize: 15.sp,
+            fontWeight: FontWeight.w400,
+            height: 0,
+          )),
     );
   }
 
@@ -48,32 +55,34 @@ class _SignInScreenState extends State<SignInScreen> {
               ),
               Container(
                 alignment: Alignment.center,
-                child: Text('Login here',
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.poppins(
-                      textStyle: const TextStyle(
-                        color: Color(0xFF1F41BB),
-                        fontSize: 30,
-                        fontWeight: FontWeight.w700,
-                        height: 0,
-                      ),
-                    )),
+                child: Text(
+                  'Login here',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: 'Poppins',
+                    color: const Color(0xFF1F41BB),
+                    fontSize: 30.sp,
+                    fontWeight: FontWeight.w700,
+                    height: 0,
+                  ),
+                ),
               ),
               SizedBox(
                 height: 6.h,
               ),
               Container(
                 alignment: Alignment.center,
-                child: Text('Welcome back you have \nbeen missed!',
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.poppins(
-                      textStyle: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                        height: 0,
-                      ),
-                    )),
+                child: Text(
+                  'Welcome back you have \nbeen missed!',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: 'Poppins',
+                    color: Colors.black,
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.w600,
+                    height: 0,
+                  ),
+                ),
               ),
               SizedBox(
                 height: 53.h,
@@ -98,16 +107,17 @@ class _SignInScreenState extends State<SignInScreen> {
                     alignment: Alignment.topRight,
                     child: TextButton(
                       onPressed: () {},
-                      child: Text('Forgot your password?',
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.poppins(
-                            textStyle: const TextStyle(
-                              color: Color(0xFF1F41BB),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                              height: 0,
-                            ),
-                          )),
+                      child: Text(
+                        'Forgot your password?',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          color: const Color(0xFF1F41BB),
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w600,
+                          height: 0,
+                        ),
+                      ),
                     ),
                   ),
                   SizedBox(
@@ -124,16 +134,17 @@ class _SignInScreenState extends State<SignInScreen> {
                           backgroundColor: const MaterialStatePropertyAll(
                               Color(0xFF1F41BB))),
                       onPressed: () {},
-                      child: Text('Sign in',
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.poppins(
-                            textStyle: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w600,
-                              height: 0,
-                            ),
-                          )),
+                      child: Text(
+                        'Sign in',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.w600,
+                          height: 0,
+                          fontFamily: 'Poppins',
+                        ),
+                      ),
                     ),
                   ),
                   SizedBox(
@@ -143,16 +154,17 @@ class _SignInScreenState extends State<SignInScreen> {
                     alignment: Alignment.center,
                     child: TextButton(
                       onPressed: () {},
-                      child: Text('Already have an account',
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.poppins(
-                            textStyle: const TextStyle(
-                              color: Color(0xFF494949),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                              height: 0,
-                            ),
-                          )),
+                      child: Text(
+                        'Already have an account',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          color: const Color(0xFF494949),
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w600,
+                          height: 0,
+                        ),
+                      ),
                     ),
                   ),
                 ]),
@@ -162,16 +174,16 @@ class _SignInScreenState extends State<SignInScreen> {
               ),
               Container(
                 alignment: Alignment.center,
-                child: Text('Or continue with',
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.poppins(
-                      textStyle: const TextStyle(
-                        color: Color(0xFF494949),
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        height: 0,
-                      ),
-                    )),
+                child: Text(
+                  'Or continue with',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: const Color(0xFF494949),
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w600,
+                    height: 0,
+                  ),
+                ),
               ),
               SizedBox(
                 height: 20.h,
@@ -193,18 +205,20 @@ class _SignInScreenState extends State<SignInScreen> {
                           'assets/images/flat-color-icons_google.svg'),
                     ),
                   ),
-                      SizedBox(width: 20.w,),
-                      GestureDetector(
-                        onTap: () {
-                          print("clicked");
-                        },
-                        child: SizedBox(
-                          width: 60.w,
-                          height: 44.h,
-                          child: SvgPicture.asset(
-                              'assets/images/ic_sharp-local-phone.svg'),
-                        ),
-                      )
+                  SizedBox(
+                    width: 20.w,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      print("clicked");
+                    },
+                    child: SizedBox(
+                      width: 60.w,
+                      height: 44.h,
+                      child: SvgPicture.asset(
+                          'assets/images/ic_sharp-local-phone.svg'),
+                    ),
+                  )
                 ]),
               ),
               SizedBox(

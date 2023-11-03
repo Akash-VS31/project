@@ -1,3 +1,4 @@
+import 'package:deal_ninja_spectrum/view/auth_ui/forgot_password_screen.dart';
 import 'package:deal_ninja_spectrum/view/auth_ui/sign_in_screen.dart';
 import 'package:deal_ninja_spectrum/view/auth_ui/sign_up_screen.dart';
 import 'package:deal_ninja_spectrum/view/auth_ui/splash_screen.dart';
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       builder: (context, child) {
         return GetMaterialApp(
-          home: SplashScreen(),
+          home:  SplashScreen(),
         );
       },
     );
