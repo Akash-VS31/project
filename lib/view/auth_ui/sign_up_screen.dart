@@ -1,12 +1,15 @@
+import 'package:deal_ninja_spectrum/controller/email_pass_controller.dart';
+import 'package:deal_ninja_spectrum/services/validations/validator.dart';
 import 'package:deal_ninja_spectrum/view/auth_ui/sign_in_screen.dart';
-import 'package:deal_ninja_spectrum/view/auth_ui/welcome_screen.dart';
-import 'package:deal_ninja_spectrum/view/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
+import '../../controller/google_auth_controller.dart';
+import '../home_screen.dart';
+import 'email_validation_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -16,8 +19,14 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  Widget getTextField({required String hint, required var icons,required var validator}) {
+  Widget getTextField(
+      {required String hint,
+      required var icons,
+      required var validator,
+      required var controller}) {
     return TextFormField(
+      validator: validator,
+      controller: controller,
       decoration: InputDecoration(
           prefixIcon: icons,
           border: OutlineInputBorder(
@@ -42,10 +51,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
           )),
     );
   }
+
   final _formKey = GlobalKey<FormState>();
   final _nameTextController = TextEditingController();
   final _emailTextController = TextEditingController();
   final _passwordTextController = TextEditingController();
+  final emailPassController = Get.put(EmailPassController());
+  final googleController = Get.put(GoogleAuthController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -99,19 +111,36 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 key: _formKey,
                 child: Container(
                   width: 357.w,
-                  height: 428.h,
+                  height: 500.h,
                   alignment: Alignment.center,
                   child: Column(children: [
                     getTextField(
-                        hint: "Name", icons: const Icon(Icons.person_outline), validator: _nameTextController),
+                        hint: "Name",
+                        icons: const Icon(Icons.person_outline),
+                        validator: (value) => Validator.validateName(
+                              name: value,
+                            ),
+                        controller: _nameTextController),
                     SizedBox(
                       height: 26.h,
                     ),
-                    getTextField(hint: "Email", icons: const Icon(Icons.email), validator: _emailTextController),
+                    getTextField(
+                        hint: "Email",
+                        icons: const Icon(Icons.email),
+                        validator: (value) => Validator.validateEmail(
+                              email: value,
+                            ),
+                        controller: _emailTextController),
                     SizedBox(
                       height: 26.h,
                     ),
-                    getTextField(hint: "Password", icons: const Icon(Icons.lock), validator: _passwordTextController),
+                    getTextField(
+                        hint: "Password",
+                        icons: const Icon(Icons.lock),
+                        validator: (value) => Validator.validatePassword(
+                              password: value,
+                            ),
+                        controller: _passwordTextController),
                     SizedBox(
                       height: 53.h,
                     ),
@@ -125,8 +154,27 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     borderRadius: BorderRadius.circular(9.r))),
                             backgroundColor: const MaterialStatePropertyAll(
                                 Color(0xFF1F41BB))),
-                        onPressed: () {
-                          Get.off(()=>const HomeScreen(), transition: Transition.leftToRightWithFade);
+                        onPressed: () async {
+                          if (_formKey.currentState!.validate()) {
+                            try {
+                              await emailPassController.signupUser(
+                                _emailTextController.text,
+                                _passwordTextController.text,
+                                _nameTextController.text,
+                              );
+                              if (emailPassController.currentUser != null) {
+                                Get.off(() => EmailValidationScreen(
+                                    user: emailPassController.currentUser!));
+                              } else {
+                                // No user is currently authenticated
+                                print('No user is currently authenticated');
+                              }
+                            } catch (e) {
+                              Get.snackbar('Error', e.toString());
+                            }
+                          }
+                          // Get.off(() => const HomeScreen(),
+                          //     transition: Transition.leftToRightWithFade);
                         },
                         child: Text(
                           'Sign up',
@@ -146,7 +194,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Get.off(const SignInScreen(), transition: Transition.leftToRightWithFade);
+                        try {
+                          googleController.signInWithGoogle().then((result) {
+                            if (result != null) {
+                              final user = googleController.user.value;
+                              print(user);
+                              if (user != null) {
+                                Get.off(() => HomeScreen());
+                              }
+                            }
+                          });
+                        } catch (e) {
+                          print(e);
+                        }
                       },
                       child: Container(
                         alignment: Alignment.center,
@@ -167,7 +227,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
               ),
               SizedBox(
-                height: 75.h,
+                height: 30.h,
               ),
               Container(
                 alignment: Alignment.center,

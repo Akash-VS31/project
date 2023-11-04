@@ -62,6 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Scaffold(
         drawer: DrawerWidget(),
         appBar: AppBar(
+            primary: false,
             bottom: PreferredSize(
               preferredSize:
                   Size.fromHeight(85.0.h), // Adjust the preferred height as needed
