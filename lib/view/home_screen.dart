@@ -1,5 +1,6 @@
 import 'package:deal_ninja_spectrum/view/auth_ui/welcome_screen.dart';
 import 'package:deal_ninja_spectrum/view/widgets/cart_screen/cart_screen.dart';
+import 'package:deal_ninja_spectrum/view/widgets/drawer/custom-drawer-widget.dart';
 import 'package:deal_ninja_spectrum/view/widgets/notification_screen.dart';
 import 'package:deal_ninja_spectrum/view/widgets/settings_screen.dart';
 import 'package:flutter/material.dart';
@@ -57,100 +58,103 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-          bottom: PreferredSize(
-            preferredSize:
-                Size.fromHeight(85.0.h), // Adjust the preferred height as needed
-            child: Padding(
-              padding: const EdgeInsets.all(13.0),
-              child: getTextField(hint: "search", icons: const Icon(Icons.search)),
+    return SafeArea(
+      child: Scaffold(
+        drawer: DrawerWidget(),
+        appBar: AppBar(
+            bottom: PreferredSize(
+              preferredSize:
+                  Size.fromHeight(85.0.h), // Adjust the preferred height as needed
+              child: Padding(
+                padding: const EdgeInsets.all(13.0),
+                child: getTextField(hint: "search", icons: const Icon(Icons.search)),
+              ),
+            ),
+            title: Text(
+              "Hi, Vineeth Venu",
+              style: TextStyle(
+                color: Colors.white,
+                fontFamily: 'Poppins',
+                fontSize: 15.sp,
+                fontWeight: FontWeight.w400,
+                height: 0,
+              ),
+            ),
+            backgroundColor: const Color(0xFF1F41BB),
+            elevation: 0,
+            actions: [
+              Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Icon(Icons.location_on),
+                    Text(
+                      "Kochi",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'Poppins',
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w400,
+                        height: 0,
+                      ),
+                    )
+                  ]),
+              SizedBox(
+                width: 20.w,
+              ),
+            ]),
+        body: SafeArea(
+            child: Stack(children: [
+          Container(
+            decoration: const BoxDecoration(color: Colors.white),
+          ),
+          SingleChildScrollView(
+            physics: const ClampingScrollPhysics(),
+            child: Column(
+              children: [
+                Text("Home"),
+                ElevatedButton(
+                    onPressed: () {
+                      Get.off(const WelcomeScreen(),
+                          transition: Transition.leftToRightWithFade);
+                    },
+                    child: Text("back"))
+              ],
             ),
           ),
-          title: Text(
-            "Hi, Vineeth Venu",
-            style: TextStyle(
-              color: Colors.white,
-              fontFamily: 'Poppins',
-              fontSize: 15.sp,
-              fontWeight: FontWeight.w400,
-              height: 0,
+        ])),
+        bottomNavigationBar: BottomNavigationBar(
+          selectedItemColor: const Color(0xFF1F41BB),
+          selectedLabelStyle: TextStyle(
+            fontFamily: 'Poppins',
+            fontSize: 12.sp,
+          ),
+          unselectedItemColor: Colors.black54,
+          currentIndex: _currentSelectedIndex,
+          onTap: _onTabTapped,
+          items: const [
+            BottomNavigationBarItem(
+              backgroundColor:  Color(0xFFF4EFEF),
+              icon: Icon(Icons.home),
+              label: "Home",
             ),
-          ),
-          backgroundColor: const Color(0xFF1F41BB),
-          elevation: 0,
-          actions: [
-            Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Icon(Icons.location_on),
-                  Text(
-                    "Kochi",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: 'Poppins',
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w400,
-                      height: 0,
-                    ),
-                  )
-                ]),
-            SizedBox(
-              width: 20.w,
+            BottomNavigationBarItem(
+              backgroundColor:  Color(0xFFF4EFEF),
+              icon: Icon(Icons.notifications),
+              label: "Notifications",
             ),
-          ]),
-      body: SafeArea(
-          child: Stack(children: [
-        Container(
-          decoration: const BoxDecoration(color: Colors.white),
+            BottomNavigationBarItem(
+              backgroundColor:  Color(0xFFF4EFEF),
+              icon: Icon(Icons.shopping_cart),
+              label: "Cart",
+            ),
+            BottomNavigationBarItem(
+              backgroundColor:  Color(0xFFF4EFEF),
+              icon: Icon(Icons.settings),
+              label: "Settings",
+            ),
+          ],
         ),
-        SingleChildScrollView(
-          physics: const ClampingScrollPhysics(),
-          child: Column(
-            children: [
-              Text("Home"),
-              ElevatedButton(
-                  onPressed: () {
-                    Get.off(const WelcomeScreen(),
-                        transition: Transition.leftToRightWithFade);
-                  },
-                  child: Text("back"))
-            ],
-          ),
-        ),
-      ])),
-      bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: const Color(0xFF1F41BB),
-        selectedLabelStyle: TextStyle(
-          fontFamily: 'Poppins',
-          fontSize: 12.sp,
-        ),
-        unselectedItemColor: Colors.black54,
-        currentIndex: _currentSelectedIndex,
-        onTap: _onTabTapped,
-        items: const [
-          BottomNavigationBarItem(
-            backgroundColor:  Color(0xFFF4EFEF),
-            icon: Icon(Icons.home),
-            label: "Home",
-          ),
-          BottomNavigationBarItem(
-            backgroundColor:  Color(0xFFF4EFEF),
-            icon: Icon(Icons.notifications),
-            label: "Notifications",
-          ),
-          BottomNavigationBarItem(
-            backgroundColor:  Color(0xFFF4EFEF),
-            icon: Icon(Icons.shopping_cart),
-            label: "Cart",
-          ),
-          BottomNavigationBarItem(
-            backgroundColor:  Color(0xFFF4EFEF),
-            icon: Icon(Icons.settings),
-            label: "Settings",
-          ),
-        ],
       ),
     );
   }
