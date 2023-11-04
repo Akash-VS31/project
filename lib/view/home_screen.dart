@@ -1,4 +1,7 @@
 import 'package:deal_ninja_spectrum/view/auth_ui/welcome_screen.dart';
+import 'package:deal_ninja_spectrum/view/widgets/cart_screen/cart_screen.dart';
+import 'package:deal_ninja_spectrum/view/widgets/notification_screen.dart';
+import 'package:deal_ninja_spectrum/view/widgets/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -13,6 +16,18 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  static List<Widget> _pages = <Widget>[
+    HomeScreen(),
+    NotificationScreen(),
+    CartScreen(),
+    SettingsScreen()
+  ];
+  int _currentSelectedIndex = 0;
+  void _onTabTapped(int index) {
+    setState(() {
+      _currentSelectedIndex = index;
+    });
+  }
   Widget getTextField({required String hint, required var icons}) {
     return TextFormField(
       decoration: InputDecoration(
@@ -46,10 +61,10 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
           bottom: PreferredSize(
             preferredSize:
-                Size.fromHeight(85.0), // Adjust the preferred height as needed
+                Size.fromHeight(85.0.h), // Adjust the preferred height as needed
             child: Padding(
               padding: const EdgeInsets.all(13.0),
-              child: getTextField(hint: "search", icons: Icon(Icons.search)),
+              child: getTextField(hint: "search", icons: const Icon(Icons.search)),
             ),
           ),
           title: Text(
@@ -65,28 +80,22 @@ class _HomeScreenState extends State<HomeScreen> {
           backgroundColor: const Color(0xFF1F41BB),
           elevation: 0,
           actions: [
-            Center(
-              child: SizedBox(
-                height: 55.h,
-                width: 35.h,
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Icon(Icons.location_on),
-                      Text(
-                        "Kochi",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'Poppins',
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w400,
-                          height: 0,
-                        ),
-                      )
-                    ]),
-              ),
-            ),
+            Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Icon(Icons.location_on),
+                  Text(
+                    "Kochi",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'Poppins',
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w400,
+                      height: 0,
+                    ),
+                  )
+                ]),
             SizedBox(
               width: 20.w,
             ),
@@ -111,6 +120,38 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ])),
+      bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: const Color(0xFF1F41BB),
+        selectedLabelStyle: TextStyle(
+          fontFamily: 'Poppins',
+          fontSize: 12.sp,
+        ),
+        unselectedItemColor: Colors.black54,
+        currentIndex: _currentSelectedIndex,
+        onTap: _onTabTapped,
+        items: const [
+          BottomNavigationBarItem(
+            backgroundColor:  Color(0xFFF4EFEF),
+            icon: Icon(Icons.home),
+            label: "Home",
+          ),
+          BottomNavigationBarItem(
+            backgroundColor:  Color(0xFFF4EFEF),
+            icon: Icon(Icons.notifications),
+            label: "Notifications",
+          ),
+          BottomNavigationBarItem(
+            backgroundColor:  Color(0xFFF4EFEF),
+            icon: Icon(Icons.shopping_cart),
+            label: "Cart",
+          ),
+          BottomNavigationBarItem(
+            backgroundColor:  Color(0xFFF4EFEF),
+            icon: Icon(Icons.settings),
+            label: "Settings",
+          ),
+        ],
+      ),
     );
   }
 }
