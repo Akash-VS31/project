@@ -1,7 +1,12 @@
+import 'package:deal_ninja_spectrum/view/auth_ui/sign_in_screen.dart';
+import 'package:deal_ninja_spectrum/view/auth_ui/welcome_screen.dart';
+import 'package:deal_ninja_spectrum/view/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -11,7 +16,7 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  Widget getTextField({required String hint, required var icons}) {
+  Widget getTextField({required String hint, required var icons,required var validator}) {
     return TextFormField(
       decoration: InputDecoration(
           prefixIcon: icons,
@@ -37,7 +42,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
           )),
     );
   }
-
+  final _formKey = GlobalKey<FormState>();
+  final _nameTextController = TextEditingController();
+  final _emailTextController = TextEditingController();
+  final _passwordTextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,66 +95,76 @@ class _SignUpScreenState extends State<SignUpScreen> {
               SizedBox(
                 height: 53.h,
               ),
-              Container(
-                width: 357.w,
-                height: 428.h,
-                alignment: Alignment.center,
-                child: Column(children: [
-                  getTextField(
-                      hint: "Name", icons: const Icon(Icons.person_outline)),
-                  SizedBox(
-                    height: 26.h,
-                  ),
-                  getTextField(hint: "Email", icons: const Icon(Icons.email)),
-                  SizedBox(
-                    height: 26.h,
-                  ),
-                  getTextField(hint: "Password", icons: const Icon(Icons.lock)),
-                  SizedBox(
-                    height: 53.h,
-                  ),
-                  SizedBox(
-                    width: 357.w,
-                    height: 50.h,
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                          shape: MaterialStatePropertyAll(
-                              RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(9.r))),
-                          backgroundColor: const MaterialStatePropertyAll(
-                              Color(0xFF1F41BB))),
-                      onPressed: () {},
-                      child: Text(
-                        'Sign up',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20.sp,
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w600,
-                          height: 0,
+              Form(
+                key: _formKey,
+                child: Container(
+                  width: 357.w,
+                  height: 428.h,
+                  alignment: Alignment.center,
+                  child: Column(children: [
+                    getTextField(
+                        hint: "Name", icons: const Icon(Icons.person_outline), validator: _nameTextController),
+                    SizedBox(
+                      height: 26.h,
+                    ),
+                    getTextField(hint: "Email", icons: const Icon(Icons.email), validator: _emailTextController),
+                    SizedBox(
+                      height: 26.h,
+                    ),
+                    getTextField(hint: "Password", icons: const Icon(Icons.lock), validator: _passwordTextController),
+                    SizedBox(
+                      height: 53.h,
+                    ),
+                    SizedBox(
+                      width: 357.w,
+                      height: 50.h,
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                            shape: MaterialStatePropertyAll(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(9.r))),
+                            backgroundColor: const MaterialStatePropertyAll(
+                                Color(0xFF1F41BB))),
+                        onPressed: () {
+                          Get.off(()=>const HomeScreen(), transition: Transition.leftToRightWithFade);
+                        },
+                        child: Text(
+                          'Sign up',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20.sp,
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w600,
+                            height: 0,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 30.h,
-                  ),
-                  Container(
-                    alignment: Alignment.center,
-                    child: Text(
-                      'Already have an account',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: const Color(0xFF494949),
-                        fontSize: 14.sp,
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w600,
-                        height: 0,
+                    SizedBox(
+                      height: 30.h,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Get.off(const SignInScreen(), transition: Transition.leftToRightWithFade);
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        child: Text(
+                          'Already have an account',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: const Color(0xFF494949),
+                            fontSize: 14.sp,
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w600,
+                            height: 0,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ]),
+                  ]),
+                ),
               ),
               SizedBox(
                 height: 75.h,

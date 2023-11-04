@@ -1,7 +1,14 @@
+import 'package:deal_ninja_spectrum/view/auth_ui/forgot_password_screen.dart';
+import 'package:deal_ninja_spectrum/view/auth_ui/sign_up_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../controller/google_auth_controller.dart';
+import '../home_screen.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -37,7 +44,7 @@ class _SignInScreenState extends State<SignInScreen> {
           )),
     );
   }
-
+  final googleController = Get.put(GoogleAuthController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -106,7 +113,9 @@ class _SignInScreenState extends State<SignInScreen> {
                   Container(
                     alignment: Alignment.topRight,
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.off(const ForgotPasswordScreen(), transition: Transition.leftToRightWithFade);
+                      },
                       child: Text(
                         'Forgot your password?',
                         textAlign: TextAlign.center,
@@ -133,7 +142,9 @@ class _SignInScreenState extends State<SignInScreen> {
                                   borderRadius: BorderRadius.circular(9.r))),
                           backgroundColor: const MaterialStatePropertyAll(
                               Color(0xFF1F41BB))),
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.off(const HomeScreen(), transition: Transition.leftToRightWithFade);
+                      },
                       child: Text(
                         'Sign in',
                         textAlign: TextAlign.center,
@@ -150,17 +161,19 @@ class _SignInScreenState extends State<SignInScreen> {
                   SizedBox(
                     height: 30.h,
                   ),
-                  Container(
-                    alignment: Alignment.center,
-                    child: TextButton(
-                      onPressed: () {},
+                  GestureDetector(
+                    onTap: () {
+                      Get.off(const SignUpScreen(), transition: Transition.leftToRightWithFade);
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
                       child: Text(
-                        'Already have an account',
+                        'Create new account',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          fontFamily: 'Poppins',
                           color: const Color(0xFF494949),
                           fontSize: 14.sp,
+                          fontFamily: 'Poppins',
                           fontWeight: FontWeight.w600,
                           height: 0,
                         ),
@@ -196,7 +209,19 @@ class _SignInScreenState extends State<SignInScreen> {
                     Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   GestureDetector(
                     onTap: () {
-                      print("clicked");
+                      try {
+                        googleController.signInWithGoogle().then((result) {
+                          if (result != null) {
+                            final user = googleController.user.value;
+                            print(user);
+                            if (user != null) {
+                              Get.off(()=>HomeScreen());
+                            }
+                          }
+                        });
+                      } catch (e) {
+                        print(e);
+                      }
                     },
                     child: SizedBox(
                       width: 60.w,

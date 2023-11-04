@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "216666159172",
+    "project_id": "deal-ninja-spectrum",
+    "storage_bucket": "deal-ninja-spectrum.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:216666159172:android:954b44a405f0f4c822a411",
+        "android_client_info": {
+          "package_name": "com.deal_ninja_spectrum_vineeth.deal_ninja_spectrum"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB06le2dnav2ZYgYCPzHix58ZX-BagZQWc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

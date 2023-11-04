@@ -1,5 +1,8 @@
+import 'package:deal_ninja_spectrum/view/auth_ui/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
@@ -108,7 +111,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                                   borderRadius: BorderRadius.circular(9.r))),
                           backgroundColor: const MaterialStatePropertyAll(
                               Color(0xFF1F41BB))),
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.off(const WelcomeScreen(), transition: Transition.leftToRightWithFade);
+                      },
                       child: Text(
                         'Rest password',
                         textAlign: TextAlign.center,

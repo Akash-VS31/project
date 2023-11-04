@@ -1,6 +1,11 @@
+import 'package:deal_ninja_spectrum/view/auth_ui/sign_in_screen.dart';
+import 'package:deal_ninja_spectrum/view/auth_ui/sign_up_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/routes/transitions_type.dart';
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
 
@@ -80,7 +85,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                   borderRadius: BorderRadius.circular(9.r))),
                           backgroundColor: const MaterialStatePropertyAll(
                               Color(0xFF1F41BB))),
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.off(()=>const SignInScreen(), transition: Transition.leftToRightWithFade);
+                      },
                       child: Text('Login',
                           textAlign: TextAlign.center,
                           style: TextStyle(
@@ -106,7 +113,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                   borderRadius: BorderRadius.circular(9.r))),
                           backgroundColor: const MaterialStatePropertyAll(
                               Color(0xFF595959))),
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.off(()=>const  SignUpScreen(), transition: Transition.leftToRightWithFade);
+                      },
                       child: Text('Register',
                           textAlign: TextAlign.center,
                           style: TextStyle(

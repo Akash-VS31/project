@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:deal_ninja_spectrum/view/auth_ui/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -12,15 +13,14 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   Timer(const Duration(seconds: 3), () {
-  //     Navigator.of(context)
-  //         .pushNamedAndRemoveUntil('/welcome', (route) => false);
-  //   });
-  // }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Future.delayed(const Duration(seconds: 3), () {
+      Get.off(()=>const WelcomeScreen(), transition: Transition.fade);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,14 +33,12 @@ class _SplashScreenState extends State<SplashScreen> {
             elevation: 0,
           ),
           body: Container(
-            decoration: const BoxDecoration(
-              color: Colors.white
-            ),
+            decoration: const BoxDecoration(color: Colors.white),
             child: Column(
               children: [
                 Expanded(
                   child: Container(
-                    width:Get.width*0.5.w,
+                    width: Get.width * 0.5.w,
                     alignment: Alignment.center,
                     child: Image.asset('assets/images/deal-ninja-logo.png',
                         width: 220),
