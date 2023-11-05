@@ -327,7 +327,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(
                     height: 8.h,
                   ),
-                  BannerWidget(),
+                  const BannerWidget(),
                   SizedBox(
                     height: 8.h,
                   ),
@@ -345,7 +345,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(
                     height: 8.h,
                   ),
-                  CategoriesWidget(),
+                  SizedBox(
+                      width: 349.w, height: 150.h, child: CategoriesWidget()),
                   Text(
                     'All deals',
                     textAlign: TextAlign.center,
@@ -357,7 +358,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: 0,
                     ),
                   ),
-                  AllProductsWidget()
+                  SizedBox(
+                    height: 12.h,
+                  ),
+                  const AllProductsWidget()
                 ],
               ),
             ),
