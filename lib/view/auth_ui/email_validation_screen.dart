@@ -20,6 +20,7 @@ class EmailValidationScreen extends StatefulWidget {
 class _EmailValidationScreenState extends State<EmailValidationScreen> {
   bool _isSendingVerification = false;
   bool _isSigningOut = false;
+  final emailValidationController=Get.put(EmailValidationController());
 
   @override
   Widget build(BuildContext context) {
@@ -129,7 +130,6 @@ class _EmailValidationScreenState extends State<EmailValidationScreen> {
                           backgroundColor: MaterialStateProperty.all(Color(0xFF1F41BB)),
                         ),
                         onPressed: () async {
-                          final emailValidationController = Get.find<EmailValidationController>();
                           setState(() {
                             _isSendingVerification = true;
                           });
@@ -138,15 +138,14 @@ class _EmailValidationScreenState extends State<EmailValidationScreen> {
                             _isSendingVerification = false;
                           });
                         },
-                        child: Text('Send email verification'),
+                        child: Text('Verify'),
                       ),
                     ),
                     SizedBox(
-                      height: 30.h,
+                     width: 30.w,
                     ),
                     TextButton.icon(     // <-- TextButton
                       onPressed: () async {
-                        final emailValidationController = Get.find<EmailValidationController>();
                         try {
                           User? user = await emailValidationController.refreshEmail(widget.user);
                           if (user != null && user.emailVerified) {
@@ -158,7 +157,7 @@ class _EmailValidationScreenState extends State<EmailValidationScreen> {
                         } catch (e) {}
                       },
                       icon:  Icon(Icons.refresh,size: 24.0,color: Color(0xFF1F41BB),),
-                      label: Text('Check email verified', style: TextStyle(
+                      label: Text('Check', style: TextStyle(
                         fontSize: 13.sp,
                         fontFamily: 'Poppins-Regular',
                         fontWeight: FontWeight.w400,
