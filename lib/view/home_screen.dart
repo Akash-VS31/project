@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:deal_ninja_spectrum/view/auth_ui/welcome_screen.dart';
+import 'package:deal_ninja_spectrum/view/widgets/all-products-widget.dart';
 import 'package:deal_ninja_spectrum/view/widgets/banner-widget.dart';
 import 'package:deal_ninja_spectrum/view/widgets/cart_screen/cart_screen.dart';
+import 'package:deal_ninja_spectrum/view/widgets/category-widget.dart';
 import 'package:deal_ninja_spectrum/view/widgets/notification_screen.dart';
 import 'package:deal_ninja_spectrum/view/widgets/settings_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -330,6 +332,21 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 8.h,
                   ),
                   Text(
+                    'All category',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: const Color(0xFF494949),
+                      fontSize: 14.sp,
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.w600,
+                      height: 0,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 8.h,
+                  ),
+                  CategoriesWidget(),
+                  Text(
                     'All deals',
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -340,6 +357,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: 0,
                     ),
                   ),
+                  AllProductsWidget()
                 ],
               ),
             ),

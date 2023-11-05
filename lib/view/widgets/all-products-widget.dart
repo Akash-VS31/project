@@ -4,10 +4,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:image_card/image_card.dart';
 
 import '../../model/product-model.dart';
+import '../user_panel/all-categories-screen.dart';
 
 class AllProductsWidget extends StatelessWidget {
   const AllProductsWidget({super.key});
@@ -27,7 +29,7 @@ class AllProductsWidget extends StatelessWidget {
         }
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Container(
-            height: Get.height / 5,
+            height: Get.height / 5.h,
             child: Center(
               child: CupertinoActivityIndicator(),
             ),
@@ -49,7 +51,7 @@ class AllProductsWidget extends StatelessWidget {
               crossAxisCount: 2,
               mainAxisSpacing: 5,
               crossAxisSpacing: 5,
-              childAspectRatio: 0.80,
+              childAspectRatio: 0.80.r,
             ),
             itemBuilder: (context, index) {
               final productData = snapshot.data!.docs[index];
@@ -77,9 +79,9 @@ class AllProductsWidget extends StatelessWidget {
                       padding: EdgeInsets.all(8.0),
                       child: Container(
                         child: FillImageCard(
-                          borderRadius: 20.0,
-                          width: Get.width / 2.3,
-                          heightImage: Get.height / 6,
+                          borderRadius: 20.0.r,
+                          width: Get.width / 2.3.w,
+                          heightImage: Get.height / 6.h,
                           imageProvider: CachedNetworkImageProvider(
                             productModel.productImages[0],
                           ),
@@ -88,11 +90,11 @@ class AllProductsWidget extends StatelessWidget {
                               productModel.productName,
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
-                              style: TextStyle(fontSize: 12.0),
+                              style: TextStyle(fontSize: 12.0.sp),
                             ),
                           ),
                           footer: Center(
-                            child: Text("PKR: " + productModel.fullPrice),
+                            child: Text("₹ " + productModel.fullPrice),
                           ),
                         ),
                       ),
