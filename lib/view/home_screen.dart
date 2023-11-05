@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:deal_ninja_spectrum/view/auth_ui/welcome_screen.dart';
+import 'package:deal_ninja_spectrum/view/widgets/banner-widget.dart';
 import 'package:deal_ninja_spectrum/view/widgets/cart_screen/cart_screen.dart';
 import 'package:deal_ninja_spectrum/view/widgets/notification_screen.dart';
 import 'package:deal_ninja_spectrum/view/widgets/settings_screen.dart';
@@ -30,6 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
       _currentSelectedIndex = index;
     });
   }
+
   Widget getTextField({required String hint, required var icons}) {
     return TextFormField(
       decoration: InputDecoration(
@@ -56,6 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
           )),
     );
   }
+
   final currentUser = FirebaseAuth.instance;
   late String userName = '';
   late String userEmail;
@@ -75,11 +78,15 @@ class _HomeScreenState extends State<HomeScreen> {
           child: StreamBuilder<QuerySnapshot>(
               stream: FirebaseFirestore.instance
                   .collection("users")
-                  .where("userId", isEqualTo: currentUser.currentUser!.uid)
+                  .where("uId", isEqualTo: currentUser.currentUser!.uid)
                   .snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return CircularProgressIndicator(); // Loading state
+                  return Center(
+                      child: SizedBox(
+                          width: 25.w,
+                          height: 25.h,
+                          child: CircularProgressIndicator())); // Loading state
                 }
 
                 if (snapshot.hasError) {
@@ -90,10 +97,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   return Text('No user data found'); // No data found
                 }
                 final userData =
-                snapshot.data!.docs.first.data() as Map<String, dynamic>;
-                userName = userData['name'] as String;
+                    snapshot.data!.docs.first.data() as Map<String, dynamic>;
+                userName = userData['username'] as String;
                 userEmail = userData['email'] as String;
-                imageUrl = userData['imageUrl'] as String;
+                imageUrl = userData['userImg'
+                    ''] as String;
                 return Wrap(
                   runSpacing: 10,
                   children: [
@@ -107,8 +115,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           style: TextStyle(
                               color: Color(0xFFFBF5F4),
                               fontFamily: 'Poppins',
-                              fontWeight: FontWeight.bold,fontSize: 16.sp
-                          ),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16.sp),
                         ),
                         subtitle: Text(
                           userEmail,
@@ -123,7 +131,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           backgroundColor: Color(0xFFbf1b08),
                           backgroundImage: imageUrl.isNotEmpty
                               ? Image.network(imageUrl).image
-                              : Image.asset('asset/images/google_icon.png').image,
+                              : Image.asset('asset/images/google_icon.png')
+                                  .image,
                         ),
                       ),
                     ),
@@ -222,7 +231,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: ListTile(
                         onTap: () async {
                           await FirebaseAuth.instance.signOut();
-                          Get.off(()=>WelcomeScreen());
+                          Get.off(() => WelcomeScreen());
                         },
                         titleAlignment: ListTileTitleAlignment.center,
                         title: Text(
@@ -249,11 +258,12 @@ class _HomeScreenState extends State<HomeScreen> {
         appBar: AppBar(
             primary: false,
             bottom: PreferredSize(
-              preferredSize:
-                  Size.fromHeight(85.0.h), // Adjust the preferred height as needed
+              preferredSize: Size.fromHeight(
+                  85.0.h), // Adjust the preferred height as needed
               child: Padding(
                 padding: const EdgeInsets.all(13.0),
-                child: getTextField(hint: "search", icons: const Icon(Icons.search)),
+                child: getTextField(
+                    hint: "search", icons: const Icon(Icons.search)),
               ),
             ),
             title: Text(
@@ -296,16 +306,42 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           SingleChildScrollView(
             physics: const ClampingScrollPhysics(),
-            child: Column(
-              children: [
-                Text("Home"),
-                ElevatedButton(
-                    onPressed: () {
-                      Get.off(const WelcomeScreen(),
-                          transition: Transition.leftToRightWithFade);
-                    },
-                    child: Text("back"))
-              ],
+            child: Padding(
+              padding: const EdgeInsets.all(13.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Trending deals',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: const Color(0xFF494949),
+                      fontSize: 14.sp,
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.w600,
+                      height: 0,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 8.h,
+                  ),
+                  BannerWidget(),
+                  SizedBox(
+                    height: 8.h,
+                  ),
+                  Text(
+                    'All deals',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: const Color(0xFF494949),
+                      fontSize: 14.sp,
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.w600,
+                      height: 0,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ])),
@@ -320,22 +356,22 @@ class _HomeScreenState extends State<HomeScreen> {
           onTap: _onTabTapped,
           items: const [
             BottomNavigationBarItem(
-              backgroundColor:  Color(0xFFF4EFEF),
+              backgroundColor: Color(0xFFF4EFEF),
               icon: Icon(Icons.home),
               label: "Home",
             ),
             BottomNavigationBarItem(
-              backgroundColor:  Color(0xFFF4EFEF),
+              backgroundColor: Color(0xFFF4EFEF),
               icon: Icon(Icons.notifications),
               label: "Notifications",
             ),
             BottomNavigationBarItem(
-              backgroundColor:  Color(0xFFF4EFEF),
+              backgroundColor: Color(0xFFF4EFEF),
               icon: Icon(Icons.shopping_cart),
               label: "Cart",
             ),
             BottomNavigationBarItem(
-              backgroundColor:  Color(0xFFF4EFEF),
+              backgroundColor: Color(0xFFF4EFEF),
               icon: Icon(Icons.settings),
               label: "Settings",
             ),

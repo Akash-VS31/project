@@ -43,6 +43,10 @@ dependencies:
   firebase_auth: ^4.12.1
   cloud_firestore: ^4.12.2
   google_sign_in: ^6.1.5
+  carousel_slider: ^4.2.1
+  cached_network_image: ^3.3.0
+  image_card: ^0.0.4
+  firebase_messaging: ^14.7.3
 
 dev_dependencies:
   flutter_test:

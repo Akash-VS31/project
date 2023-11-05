@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 import '../model/user_model.dart';
+import 'get-device-token-controller.dart';
 
 class EmailPassController extends GetxController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -10,6 +11,8 @@ class EmailPassController extends GetxController {
   FirebaseAuth get auth => _auth;
 
   Future<void> signupUser(String email, String password, String name) async {
+    final GetDeviceTokenController getDeviceTokenController =
+        Get.put(GetDeviceTokenController());
     try {
       UserCredential userCredential = await _auth
           .createUserWithEmailAndPassword(email: email, password: password);
@@ -17,11 +20,20 @@ class EmailPassController extends GetxController {
       await userCredential.user!.updateDisplayName(name);
       await userCredential.user!.updateEmail(email);
       UserModel userModel = UserModel(
-        userId: userCredential.user!.uid,
-        name: userCredential.user!.displayName ?? name,
+        uId: userCredential.user!.uid,
+        username: userCredential.user!.displayName ?? name,
         email: userCredential.user!.email ?? '',
-        imageUrl: userCredential.user!.photoURL ??
+        phone: userCredential.user!.phoneNumber ?? '',
+        userImg: userCredential.user!.photoURL ??
             'https://firebasestorage.googleapis.com/v0/b/dealninja-2b50b.appspot.com/o/User.png?alt=media&token=b2e7d3ec-7ff6-4567-84b5-d9cee26253f2',
+        userDeviceToken: getDeviceTokenController.deviceToken.toString(),
+        country: '',
+        userAddress: '',
+        street: '',
+        isAdmin: false,
+        isActive: true,
+        createdOn: DateTime.now(),
+        city: '',
       );
       try {
         await FirebaseFirestore.instance // Save user data to Firestore

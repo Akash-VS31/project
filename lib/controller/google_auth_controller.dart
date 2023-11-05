@@ -8,6 +8,7 @@ import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../model/user_model.dart';
+import 'get-device-token-controller.dart';
 
 class GoogleAuthController extends GetxController {
   final _auth = FirebaseAuth.instance;
@@ -19,10 +20,12 @@ class GoogleAuthController extends GetxController {
   Rx<User?> user = Rx<User?>(null);
 
   Future<String> signInWithGoogle() async {
+    final GetDeviceTokenController getDeviceTokenController =
+        Get.put(GetDeviceTokenController());
     try {
       final googleSignInAccount = await _googleSignIn.signIn();
       final GoogleSignInAuthentication googleSignInAuthentication =
-      await googleSignInAccount!.authentication;
+          await googleSignInAccount!.authentication;
 
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleSignInAuthentication.accessToken,
@@ -30,7 +33,7 @@ class GoogleAuthController extends GetxController {
       );
 
       final UserCredential authResult =
-      await _auth.signInWithCredential(credential);
+          await _auth.signInWithCredential(credential);
       final currentUser = authResult.user;
 
       if (currentUser != null) {
@@ -45,10 +48,19 @@ class GoogleAuthController extends GetxController {
 
         // Create a UserModel object and initialize it
         UserModel userModel = UserModel(
-          userId: currentUser.uid,
-          name: currentUser.displayName ?? '',
+          uId: currentUser.uid,
+          username: currentUser.displayName ?? '',
           email: currentUser.email ?? '',
-          imageUrl: currentUser.photoURL ?? '',
+          phone: currentUser.phoneNumber ?? '',
+          userImg: currentUser.photoURL ?? '',
+          userDeviceToken: getDeviceTokenController.deviceToken.toString(),
+          country: '',
+          userAddress: '',
+          street: '',
+          isAdmin: false,
+          isActive: true,
+          createdOn: DateTime.now(),
+          city: '',
         );
 
         print('signInWithGoogle succeeded: $currentUser');
