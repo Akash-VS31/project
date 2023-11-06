@@ -1,11 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:deal_ninja_spectrum/view/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import '../../model/cart_model.dart';
 import '../../model/product-model.dart';
 
 class ProductDetailScreen extends StatefulWidget {
@@ -41,8 +42,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       borderRadius: BorderRadius.circular(8.0),
                       child: CachedNetworkImage(
                         imageUrl: imageUrls,
-                        fit: BoxFit.cover,
-                        width: Get.width - 10,
+                        fit: BoxFit.fill,
+                        width: 150,
                         placeholder: (context, url) => ColoredBox(
                           color: Colors.white,
                           child: Center(child: CupertinoActivityIndicator()),
@@ -130,7 +131,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                               color: Colors.red,
                               borderRadius: BorderRadius.circular(20.0)),
                           child: TextButton(
-                              onPressed: () {}, child: Text("Add to cart")),
+                              onPressed: () async {
+                                await checkProductExistance(uId: user!.uid);
+                              },
+                              child: Text("Add to cart")),
                         ),
                       ),
                     ],
@@ -142,5 +146,56 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         ]),
       ),
     );
+  }
+
+  Future<void> checkProductExistance(
+      {required String uId, int quantityIncrement = 1}) async {
+    final DocumentReference documentReference = FirebaseFirestore.instance
+        .collection('cart')
+        .doc(uId)
+        .collection('cartOrders')
+        .doc(widget.productModel.productId.toString());
+    DocumentSnapshot snapshot = await documentReference.get();
+    if (snapshot.exists) {
+      print("Product already exist");
+      print("Product quantity updated: $quantityIncrement");
+      int currentQuantity = snapshot['productQuantity'];
+      int updatedQuantity = currentQuantity + quantityIncrement;
+      print("Product quantity updated: $updatedQuantity");
+      double totalPrice = double.parse(widget.productModel.isSale
+              ? widget.productModel.salePrice
+              : widget.productModel.fullPrice) *
+          updatedQuantity;
+      print("Product quantity updated: $totalPrice");
+      await documentReference.update({
+        'productQuantity': updatedQuantity,
+        'productTotalPrice': totalPrice
+      });
+    } else {
+      await FirebaseFirestore.instance
+          .collection('cart')
+          .doc(uId)
+          .set({'uId': uId, 'createdAt': DateTime.now()});
+      CartModel cartModel = CartModel(
+        productId: widget.productModel.productId,
+        categoryId: widget.productModel.categoryId,
+        productName: widget.productModel.productName,
+        categoryName: widget.productModel.categoryName,
+        salePrice: widget.productModel.salePrice,
+        fullPrice: widget.productModel.fullPrice,
+        productImages: widget.productModel.productImages,
+        deliveryTime: widget.productModel.deliveryTime,
+        isSale: widget.productModel.isSale,
+        productDescription: widget.productModel.productDescription,
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now(),
+        productQuantity: 1,
+        productTotalPrice: double.parse(widget.productModel.isSale
+            ? widget.productModel.salePrice
+            : widget.productModel.fullPrice),
+      );
+      await documentReference.set(cartModel.toMap());
+      print("product added");
+    }
   }
 }
