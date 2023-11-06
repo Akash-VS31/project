@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 import '../model/user_model.dart';
+import '../view/auth_ui/welcome_screen.dart';
 import 'get-device-token-controller.dart';
 
 class EmailPassController extends GetxController {
@@ -87,14 +88,16 @@ class EmailPassController extends GetxController {
       await _auth.sendPasswordResetEmail(email: userEmail);
       Get.snackbar(
         "Request Sent Sucessfully",
-        "Password reesr link sent to $userEmail",
-        snackPosition: SnackPosition.BOTTOM,
+        "Password reset link sent to $userEmail",
+        snackPosition: SnackPosition.TOP,
       );
+      Get.off(const WelcomeScreen(),
+          transition: Transition.leftToRightWithFade);
     } on FirebaseAuthException catch (e) {
       Get.snackbar(
         "Error",
         "$e",
-        snackPosition: SnackPosition.BOTTOM,
+        snackPosition: SnackPosition.TOP,
       );
     }
   }

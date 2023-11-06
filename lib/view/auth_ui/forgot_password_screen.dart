@@ -26,6 +26,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
       required var controller,
       required var validator}) {
     return TextFormField(
+      validator: validator,
       controller: controller,
       decoration: InputDecoration(
           prefixIcon: icons,
@@ -144,8 +145,6 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                             } else {
                               String email = _forgotPassController.text.trim();
                               emailPassController.ForgetPasswordMethod(email);
-                              Get.off(const WelcomeScreen(),
-                                  transition: Transition.leftToRightWithFade);
                             }
                           }
                         },
