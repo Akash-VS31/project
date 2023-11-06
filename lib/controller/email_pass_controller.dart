@@ -80,4 +80,22 @@ class EmailPassController extends GetxController {
       print(e);
     }
   }
+  Future<void> ForgetPasswordMethod(
+      String userEmail,
+      ) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: userEmail);
+      Get.snackbar(
+        "Request Sent Sucessfully",
+        "Password reesr link sent to $userEmail",
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    } on FirebaseAuthException catch (e) {
+      Get.snackbar(
+        "Error",
+        "$e",
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    }
+  }
 }

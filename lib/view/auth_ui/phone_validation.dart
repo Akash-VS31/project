@@ -1,6 +1,7 @@
 import 'package:deal_ninja_spectrum/view/auth_ui/verify_phone_no.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class MyPhone extends StatefulWidget {
@@ -101,10 +102,12 @@ class _MyPhoneState extends State<MyPhone> {
                 width: double.infinity,
                 height: 45,
                 child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        primary: Colors.green.shade600,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10))),
+                    style: ButtonStyle(
+                        shape: MaterialStatePropertyAll(
+                            RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(9.r))),
+                        backgroundColor: const MaterialStatePropertyAll(
+                            Color(0xFF1F41BB))),
                     onPressed: () async {
                       await FirebaseAuth.instance.verifyPhoneNumber(
                         phoneNumber: '${countryController.text + phone}',

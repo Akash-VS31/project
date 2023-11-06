@@ -5,6 +5,9 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../controller/email_pass_controller.dart';
+import '../../services/validations/validator.dart';
+
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
 
@@ -13,8 +16,17 @@ class ForgotPasswordScreen extends StatefulWidget {
 }
 
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
-  Widget getTextField({required String hint, required var icons}) {
+  final _forgotPassController = TextEditingController();
+  final emailPassController = Get.put(EmailPassController());
+
+  final _formKey = GlobalKey<FormState>();
+  Widget getTextField(
+      {required String hint,
+      required var icons,
+      required var controller,
+      required var validator}) {
     return TextFormField(
+      controller: controller,
       decoration: InputDecoration(
           prefixIcon: icons,
           border: OutlineInputBorder(
@@ -89,48 +101,72 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               SizedBox(
                 height: 53.h,
               ),
-              Container(
-                width: 357.w,
-                height: 428.h,
-                alignment: Alignment.center,
-                child: Column(children: [
-                  SizedBox(
-                    height: 26.h,
-                  ),
-                  getTextField(hint: "Email", icons: const Icon(Icons.email)),
-                  SizedBox(
-                    height: 25.h,
-                  ),
-                  SizedBox(
-                    width: 357.w,
-                    height: 50.h,
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                          shape: MaterialStatePropertyAll(
-                              RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(9.r))),
-                          backgroundColor: const MaterialStatePropertyAll(
-                              Color(0xFF1F41BB))),
-                      onPressed: () {
-                        Get.off(const WelcomeScreen(), transition: Transition.leftToRightWithFade);
-                      },
-                      child: Text(
-                        'Rest password',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
-                          color: Colors.white,
-                          fontSize: 20.sp,
-                          fontWeight: FontWeight.w600,
-                          height: 0,
+              Form(
+                key: _formKey,
+                child: Container(
+                  width: 357.w,
+                  height: 428.h,
+                  alignment: Alignment.center,
+                  child: Column(children: [
+                    SizedBox(
+                      height: 26.h,
+                    ),
+                    getTextField(
+                        validator: (value) => Validator.validateEmail(
+                              email: value,
+                            ),
+                        hint: "Email",
+                        icons: const Icon(Icons.email),
+                        controller: _forgotPassController),
+                    SizedBox(
+                      height: 25.h,
+                    ),
+                    SizedBox(
+                      width: 357.w,
+                      height: 50.h,
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                            shape: MaterialStatePropertyAll(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(9.r))),
+                            backgroundColor: const MaterialStatePropertyAll(
+                                Color(0xFF1F41BB))),
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            String email = _forgotPassController.text.trim();
+                            print(email);
+                            if (email.isEmpty) {
+                              Get.snackbar(
+                                "Error",
+                                "Please enter all details",
+                                snackPosition: SnackPosition.BOTTOM,
+                              );
+                            } else {
+                              String email = _forgotPassController.text.trim();
+                              emailPassController.ForgetPasswordMethod(email);
+                              Get.off(const WelcomeScreen(),
+                                  transition: Transition.leftToRightWithFade);
+                            }
+                          }
+                        },
+                        child: Text(
+                          'Rest password',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            color: Colors.white,
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.w600,
+                            height: 0,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 30.h,
-                  ),
-                ]),
+                    SizedBox(
+                      height: 30.h,
+                    ),
+                  ]),
+                ),
               ),
             ],
           ),

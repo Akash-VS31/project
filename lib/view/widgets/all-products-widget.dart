@@ -2,6 +2,7 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:deal_ninja_spectrum/view/user_panel/product_detail_screen.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -86,14 +87,19 @@ class AllProductsWidget extends StatelessWidget {
                     ]),
                 child: Column(
                   children: [
-                    Container(
-                      width: 150,
-                      height: 150,
-                      child: Padding(
-                        padding: const EdgeInsets.all(13.0),
-                        child: Image.network(
-                          productModel.productImages[0],
-                          width: double.infinity,
+                    GestureDetector(
+                      onTap: () {
+                        Get.off(ProductDetailScreen(productModel: productModel));
+                      },
+                      child: Container(
+                        width: 150,
+                        height: 150,
+                        child: Padding(
+                          padding: const EdgeInsets.all(13.0),
+                          child: Image.network(
+                            productModel.productImages[0],
+                            width: double.infinity,
+                          ),
                         ),
                       ),
                     ),
