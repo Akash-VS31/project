@@ -96,7 +96,34 @@ class _HomeScreenState extends State<HomeScreen> {
                 }
 
                 if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                  return Text('No user data found'); // No data found
+                  return Column(children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20.0.h),
+                      child: ListTile(
+                        onTap: () async {
+                          await FirebaseAuth.instance.signOut();
+                          Get.off(() => WelcomeScreen());
+                        },
+                        titleAlignment: ListTileTitleAlignment.center,
+                        title: Text(
+                          "Logout",
+                          style: TextStyle(
+                            color: Color(0xFFFBF5F4),
+                            fontFamily: 'Poppins',
+                          ),
+                        ),
+                        leading: const Icon(
+                          Icons.logout,
+                          color: Color(0xFFFBF5F4),
+                        ),
+                        trailing: const Icon(
+                          Icons.arrow_forward,
+                          color: Color(0xFFFBF5F4),
+                        ),
+                      ),
+                    ),
+                    Text("No data found")
+                  ],); // No data found
                 }
                 final userData =
                     snapshot.data!.docs.first.data() as Map<String, dynamic>;

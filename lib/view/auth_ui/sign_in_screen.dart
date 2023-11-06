@@ -1,4 +1,5 @@
 import 'package:deal_ninja_spectrum/view/auth_ui/forgot_password_screen.dart';
+import 'package:deal_ninja_spectrum/view/auth_ui/phone_validation.dart';
 import 'package:deal_ninja_spectrum/view/auth_ui/sign_up_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -280,7 +281,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      print("clicked");
+                      Get.off(MyPhone());
                     },
                     child: SizedBox(
                       width: 60.w,
