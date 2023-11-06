@@ -63,7 +63,7 @@ class CartModel {
         productImages: json['productImages'],
         deliveryTime: json['deliveryTime'],
         isSale: json['isSale'],
-        productDescription: json['productDesccription'],
+        productDescription: json['productDescription'],
         createdAt: json['createdAt'],
         updatedAt: json['updatedAt'],
         productQuantity: json['productQuantity'],

@@ -7,12 +7,11 @@ import 'package:deal_ninja_spectrum/view/widgets/category-widget.dart';
 import 'package:deal_ninja_spectrum/view/widgets/notification_screen.dart';
 import 'package:deal_ninja_spectrum/view/widgets/settings_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/src/routes/transitions_type.dart';
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -308,25 +307,9 @@ class _HomeScreenState extends State<HomeScreen> {
             backgroundColor: const Color(0xFF1F41BB),
             elevation: 0,
             actions: [
-              Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Icon(Icons.location_on),
-                    Text(
-                      "Kochi",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'Poppins',
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w400,
-                        height: 0,
-                      ),
-                    )
-                  ]),
-              SizedBox(
-                width: 20.w,
-              ),
+              IconButton(onPressed: () {
+                Get.to(CartScreen());
+              }, icon: Icon(CupertinoIcons.cart))
             ]),
         body: SafeArea(
             child: Stack(children: [
