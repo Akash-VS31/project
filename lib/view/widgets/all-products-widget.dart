@@ -11,6 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:image_card/image_card.dart';
 
+import '../../controller/add_product_controller.dart';
 import '../../model/product-model.dart';
 import '../user_panel/all-categories-screen.dart';
 
@@ -22,6 +23,7 @@ class AllProductsWidget extends StatefulWidget {
 }
 
 class _AllProductsWidgetState extends State<AllProductsWidget> {
+  final addFirebaseController = Get.put(AddFirebaseController());
   User? user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
@@ -146,7 +148,12 @@ class _AllProductsWidgetState extends State<AllProductsWidget> {
                             child: IconButton(
                                 icon: Icon(Icons.add_shopping_cart,
                                     color: Colors.white),
-                                onPressed: () {}),
+                                onPressed: () async {
+                                  await addFirebaseController
+                                      .checkProductExistance(
+                                          uId: user!.uid,
+                                          productModel: productModel);
+                                }),
                           ),
                         )
                       ],
