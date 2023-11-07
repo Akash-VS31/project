@@ -3,6 +3,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:deal_ninja_spectrum/view/user_panel/product_detail_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,9 +14,15 @@ import 'package:image_card/image_card.dart';
 import '../../model/product-model.dart';
 import '../user_panel/all-categories-screen.dart';
 
-class AllProductsWidget extends StatelessWidget {
+class AllProductsWidget extends StatefulWidget {
   const AllProductsWidget({super.key});
 
+  @override
+  State<AllProductsWidget> createState() => _AllProductsWidgetState();
+}
+
+class _AllProductsWidgetState extends State<AllProductsWidget> {
+  User? user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -51,7 +58,7 @@ class AllProductsWidget extends StatelessWidget {
             physics: BouncingScrollPhysics(),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              childAspectRatio: .90,
+              childAspectRatio: .78,
               mainAxisSpacing: 4.0,
               crossAxisSpacing: 10,
             ),
@@ -75,7 +82,7 @@ class AllProductsWidget extends StatelessWidget {
                 decoration: BoxDecoration(
                     border: Border.all(
                       color: Colors.black26,
-                      width: 2.0,
+                      width: 2.0.w,
                     ),
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(15),
@@ -83,7 +90,7 @@ class AllProductsWidget extends StatelessWidget {
                       BoxShadow(
                           color: Colors.grey.withOpacity(.5),
                           offset: Offset(3, 2),
-                          blurRadius: 7)
+                          blurRadius: 7.r)
                     ]),
                 child: Column(
                   children: [
@@ -93,8 +100,8 @@ class AllProductsWidget extends StatelessWidget {
                             ProductDetailScreen(productModel: productModel));
                       },
                       child: Container(
-                        width: 150,
-                        height: 150,
+                        width: 150.w,
+                        height: 150.h,
                         child: Padding(
                           padding: const EdgeInsets.all(13.0),
                           child: Image.network(
@@ -130,7 +137,7 @@ class AllProductsWidget extends StatelessWidget {
                           ),
                         ),
                         SizedBox(
-                          width: 30,
+                          width: 30.w,
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
