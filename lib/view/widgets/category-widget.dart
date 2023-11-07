@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:image_card/image_card.dart';
+
 
 import '../../model/categories-model.dart';
 import '../user_panel/all-categories-screen.dart';
@@ -51,47 +51,45 @@ class CategoriesWidget extends StatelessWidget {
                   createdAt: snapshot.data!.docs[index]['createdAt'],
                   updatedAt: snapshot.data!.docs[index]['updatedAt'],
                 );
-                return GestureDetector(
-                  onTap: () => Get.to(() => AllSingleCategoryProductsScreen(
-                      categoryId: categoriesModel.categoryId)),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.black26,
-                          width: 2.0,
-                        ),
-                        color: const Color(0xFFF1F4FF),
-                        borderRadius: BorderRadius.circular(15),
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.grey.withOpacity(.5),
-                              offset: Offset(3, 2),
-                              blurRadius: 7)
-                        ]),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: 170,
-                          height: 130,
-                          child: Padding(
-                            padding: const EdgeInsets.all(13.0),
-                            child: Image.network(
-                              categoriesModel.categoryImg,
-                              width: double.infinity,
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: GestureDetector(
+                      onTap: () => Get.to(() => AllSingleCategoryProductsScreen(
+                          categoryId: categoriesModel.categoryId)),
+                      child: Container(
+                        child: Column(
+                          children: [
+                            CircleAvatar(
+                              backgroundColor: Color(0xFFC0C0C0),
+                              radius: 40,
+                              child: CachedNetworkImage(
+                                imageUrl: categoriesModel.categoryImg,
+                                fit: BoxFit.fill,
+                                width: 40,
+                                placeholder: (context, url) => ColoredBox(
+                                  color: Colors.white,
+                                  child: Center(child: CupertinoActivityIndicator()),
+                                ),
+                                errorWidget: (context, url, error) => Icon(Icons.error),
+                              ),
                             ),
-                          ),
+                            SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              categoriesModel.categoryName,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: const Color(0xFF494949),
+                                fontSize: 14.sp,
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.w500,
+                                height: 0,
+                              ),
+                            )
+                          ],
                         ),
-                        Text(
-                          categoriesModel.categoryName,
-                          style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w400),
-                        ),
-                      ],
-                    ),
-                  ),
+                      )),
                 );
               },
             ),

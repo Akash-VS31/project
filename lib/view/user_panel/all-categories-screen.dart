@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:deal_ninja_spectrum/view/user_panel/product_detail_screen.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
@@ -34,7 +35,8 @@ class _AllSingleCategoryProductsScreenState
               .collection('products')
               .where('categoryId', isEqualTo: widget.categoryId)
               .get(),
-          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          builder:
+              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.hasError) {
               return Center(
                 child: Text("Error"),
@@ -98,36 +100,55 @@ class _AllSingleCategoryProductsScreenState
                         ]),
                     child: Column(
                       children: [
-                        Container(
-                          width: 150,
-                          height: 150,
-                          child: Padding(
-                            padding: const EdgeInsets.all(13.0),
-                            child: Image.network(
-                              productModel.productImages[0],
-                              width: double.infinity,
+                        GestureDetector(
+                          onTap: () {
+                            Get.off(ProductDetailScreen(
+                                productModel: productModel));
+                          },
+                          child: Container(
+                            width: 150,
+                            height: 150,
+                            child: Padding(
+                              padding: const EdgeInsets.all(13.0),
+                              child: Image.network(
+                                productModel.productImages[0],
+                                width: double.infinity,
+                              ),
                             ),
                           ),
                         ),
-                        Text(productModel.productName,style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.bold),),
+                        Text(
+                          productModel.productName,
+                          style: TextStyle(
+                              color: Color(0xFF505050),
+                              fontFamily: 'Poppins',
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w600),
+                        ),
                         SizedBox(
-                          height: 10,
+                          height: 10.h,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(left: 8.0),
-                              child: Text(' ₹ ${productModel.fullPrice}',style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.bold),),
+                              padding: const EdgeInsets.only(left: 13.0),
+                              child: Text(
+                                ' ₹ ${productModel.fullPrice}',
+                                style: TextStyle(
+                                    color: Color(0xFFCF1919),
+                                    fontFamily: 'Poppins',
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w400),
+                              ),
                             ),
                             SizedBox(
                               width: 30,
                             ),
                             IconButton(
-                                icon: Icon(Icons.add_shopping_cart),
-                                onPressed: () {
-
-                                })
+                                icon: Icon(Icons.add_shopping_cart,
+                                    color: Color(0xFF226450)),
+                                onPressed: () {})
                           ],
                         ),
                       ],

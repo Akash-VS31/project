@@ -59,7 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
           )),
     );
   }
-
+  User? user = FirebaseAuth.instance.currentUser;
   final currentUser = FirebaseAuth.instance;
   late String userName = '';
   late String userEmail;
@@ -353,10 +353,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   SizedBox(
-                    height: 8.h,
+                    height: 12.h,
                   ),
                   SizedBox(
-                      width: 349.w, height: 150.h, child: CategoriesWidget()),
+                      width: 349.w, height: 115.h, child: CategoriesWidget()),
                   Text(
                     'All deals',
                     textAlign: TextAlign.center,
@@ -369,7 +369,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   SizedBox(
-                    height: 12.h,
+                    height: 15.h,
                   ),
                   const AllProductsWidget()
                 ],

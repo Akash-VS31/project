@@ -89,7 +89,8 @@ class AllProductsWidget extends StatelessWidget {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        Get.off(ProductDetailScreen(productModel: productModel));
+                        Get.off(
+                            ProductDetailScreen(productModel: productModel));
                       },
                       child: Container(
                         width: 150,
@@ -106,12 +107,13 @@ class AllProductsWidget extends StatelessWidget {
                     Text(
                       productModel.productName,
                       style: TextStyle(
+                          color: Color(0xFF505050),
                           fontFamily: 'Poppins',
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w400),
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w600),
                     ),
                     SizedBox(
-                      height: 10,
+                      height: 10.h,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -121,17 +123,25 @@ class AllProductsWidget extends StatelessWidget {
                           child: Text(
                             ' ₹ ${productModel.fullPrice}',
                             style: TextStyle(
+                                color: Color(0xFFCF1919),
                                 fontFamily: 'Poppins',
-                                fontSize: 16.sp,
+                                fontSize: 14.sp,
                                 fontWeight: FontWeight.w400),
                           ),
                         ),
                         SizedBox(
                           width: 30,
                         ),
-                        IconButton(
-                            icon: Icon(Icons.add_shopping_cart),
-                            onPressed: () {})
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: CircleAvatar(
+                            backgroundColor: Color(0xFF660018),
+                            child: IconButton(
+                                icon: Icon(Icons.add_shopping_cart,
+                                    color: Colors.white),
+                                onPressed: () {}),
+                          ),
+                        )
                       ],
                     ),
                   ],

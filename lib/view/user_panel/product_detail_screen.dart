@@ -5,6 +5,8 @@ import 'package:deal_ninja_spectrum/view/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import '../../model/cart_model.dart';
 import '../../model/product-model.dart';
@@ -72,11 +74,19 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(widget.productModel.productName),
+                          Text(
+                            widget.productModel.productName,
+                            style: TextStyle(
+                                color: Color(0xFFCF1919),
+                                fontFamily: 'Poppins',
+                                fontSize: 18.sp,
+                                fontWeight: FontWeight.w800),
+                          ),
                           Icon(Icons.favorite_border_outlined)
                         ]),
                   ),
                 ),
+                Divider(),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
@@ -85,25 +95,51 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       children: [
                         widget.productModel.isSale == true &&
                                 widget.productModel.salePrice != ''
-                            ? Text("₹ ${widget.productModel.salePrice}")
-                            : Text("₹${widget.productModel.fullPrice}"),
+                            ? Text(
+                                "₹ ${widget.productModel.salePrice}",
+                                style: TextStyle(
+                                    color: Color(0xFF519B58),
+                                    fontFamily: 'Poppins',
+                                    fontSize: 18.sp,
+                                    fontWeight: FontWeight.w800),
+                              )
+                            : Text(
+                                "₹${widget.productModel.fullPrice}",
+                                style: TextStyle(
+                                    color: Color(0xFF519B58),
+                                    fontFamily: 'Poppins',
+                                    fontSize: 18.sp,
+                                    fontWeight: FontWeight.w800),
+                              ),
                       ],
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    child: Text("Category${widget.productModel.categoryName}"),
-                  ),
-                ),
+                const Divider(),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
                     alignment: Alignment.topLeft,
-                    child: Text(widget.productModel.productDescription),
+                    child: Text("Category : ${widget.productModel.categoryName}",style: TextStyle(
+                        color: const Color(0xFF494949),
+                        fontFamily: 'Poppins',
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w500)),
                   ),
                 ),
+                const Divider(),
+                Padding(
+                  padding: const EdgeInsets.only(top: 8,left: 8,right: 8,bottom: 180),
+                  child: Container(
+                    alignment: Alignment.topLeft,
+                    child: Text(widget.productModel.productDescription,style: TextStyle(
+                        color: const Color(0xFF494949),
+                        fontFamily: 'Poppins',
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w500)),
+                  ),
+                ),
+                Divider(),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
@@ -114,27 +150,42 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           width: Get.width / 3.0,
                           height: Get.height / 16,
                           decoration: BoxDecoration(
-                              color: Colors.red,
+                              color: const Color(0xFF1F41BB),
                               borderRadius: BorderRadius.circular(20.0)),
                           child: TextButton(
-                              onPressed: () {}, child: Text("WhatsApp")),
+                              onPressed: () {}, child: Row(
+                                children: [
+                                  SizedBox(width: 10.w,),
+                                  SvgPicture.asset('assets/images/logos_whatsapp-icon.svg',width: 30,height: 30,),
+                                  SizedBox(width: 10.w,),
+                                  Text("WhatsApp",style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'Poppins',
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w500)),
+                                ],
+                              )),
                         ),
                       ),
                       SizedBox(
-                        width: 5.0,
+                        width: 40.0,
                       ),
                       Material(
                         child: Container(
                           width: Get.width / 3.0,
                           height: Get.height / 16,
                           decoration: BoxDecoration(
-                              color: Colors.red,
+                              color: const Color(0xFF1F41BB),
                               borderRadius: BorderRadius.circular(20.0)),
                           child: TextButton(
                               onPressed: () async {
                                 await checkProductExistance(uId: user!.uid);
                               },
-                              child: Text("Add to cart")),
+                              child: Text("Add to cart",style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'Poppins',
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w500))),
                         ),
                       ),
                     ],
