@@ -1,8 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../../../controller/add_product_controller.dart';
 import '../../../model/cart_model.dart';
 
 class CartScreen extends StatefulWidget {
@@ -11,8 +14,8 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
+  final addFirebaseController = Get.put(AddFirebaseController());
   User? user = FirebaseAuth.instance.currentUser;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +30,7 @@ class _CartScreenState extends State<CartScreen> {
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return Center(child: CupertinoActivityIndicator());
           }
           if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
@@ -43,12 +46,37 @@ class _CartScreenState extends State<CartScreen> {
               final cartItem = cartItems[index];
               final cartProduct =
                   CartModel.fromMap(cartItem.data() as Map<String, dynamic>);
-              return ListTile(
-                title: Text(cartProduct.productName),
-                subtitle: Text('Quantity: ${cartProduct.productQuantity}'),
-                trailing: Text(
-                    '₹${cartProduct.productTotalPrice.toStringAsFixed(2)}'),
-                // Implement a button or action to remove the item from the cart.
+              return Container(
+                child: Column(
+                  children: [
+                    ListTile(
+                      title: Text(cartProduct.productName),
+                      subtitle:
+                          Text('Quantity: ${cartProduct.productQuantity}'),
+                      trailing: Text(
+                          '₹${cartProduct.productTotalPrice.toStringAsFixed(2)}'),
+                      // Implement a button or action to remove the item from the cart.
+                    ),
+                    Row(
+                      children: [
+                        ElevatedButton(
+                            onPressed: () async {
+                              await addFirebaseController
+                                  .decrementCartItemQuantity(
+                                      uId: user!.uid,
+                                      productId: cartProduct.productId);
+                            },
+                            child: Text('-')),
+                        SizedBox(
+                          width: 10.w,
+                        ),
+                        ElevatedButton(onPressed: () async {
+                          await addFirebaseController.incrementCartItemQuantity(uId: user!.uid, productId: cartProduct.productId);
+                        }, child: Text('+')),
+                      ],
+                    )
+                  ],
+                ),
               );
             },
           );
