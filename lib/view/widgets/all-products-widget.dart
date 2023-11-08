@@ -150,7 +150,9 @@ class _AllProductsWidgetState extends State<AllProductsWidget> {
                                     color: Colors.white),
                                 onPressed: () async {
                                   await addFirebaseController
-                                      .decrementCartItemQuantity(uId: user!.uid, productId: productModel.productId);
+                                      .checkProductExistance(
+                                      uId: user!.uid,
+                                      productModel: productModel);
                                 }),
                           ),
                         )

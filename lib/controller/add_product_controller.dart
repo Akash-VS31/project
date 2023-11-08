@@ -135,7 +135,7 @@ class AddFirebaseController extends GetxController {
       double productTotalPrice =
           double.parse('${snapshot['productTotalPrice']}');
       print('productTotalPrice: $productTotalPrice');
-      if (currentQuantity >= quantityDecrement) {
+      if (currentQuantity > quantityDecrement) {
         int updatedQuantity = currentQuantity - quantityDecrement;
         bool isSale = bool.parse('${snapshot['isSale']}');
         double unitPrice = double.parse(

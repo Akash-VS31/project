@@ -1,5 +1,6 @@
 import 'package:deal_ninja_spectrum/controller/email_pass_controller.dart';
 import 'package:deal_ninja_spectrum/services/validations/validator.dart';
+import 'package:deal_ninja_spectrum/view/auth_ui/phone_validation.dart';
 import 'package:deal_ninja_spectrum/view/auth_ui/sign_in_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -254,7 +255,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   GestureDetector(
                     onTap: () {
-                      print("clicked");
+                      try {
+                        googleController.signInWithGoogle().then((result) {
+                          if (result != null) {
+                            final user = googleController.user.value;
+                            print(user);
+                            if (user != null) {
+                              Get.off(() => HomeScreen());
+                            }
+                          }
+                        });
+                      } catch (e) {
+                        print(e);
+                      }
                     },
                     child: SizedBox(
                       width: 60.w,
@@ -268,7 +281,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      print("clicked");
+                      Get.off(MyPhone());
                     },
                     child: SizedBox(
                       width: 60.w,

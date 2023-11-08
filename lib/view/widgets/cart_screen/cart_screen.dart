@@ -68,11 +68,12 @@ class _CartScreenState extends State<CartScreen> {
                             },
                             child: Text('-')),
                         SizedBox(
-                          width: 10.w,
+                          width: 5.w,
                         ),
                         ElevatedButton(onPressed: () async {
                           await addFirebaseController.incrementCartItemQuantity(uId: user!.uid, productId: cartProduct.productId);
                         }, child: Text('+')),
+
                       ],
                     )
                   ],

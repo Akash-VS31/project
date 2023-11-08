@@ -1,7 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
@@ -56,6 +58,7 @@ class _CartItemScreenState extends State<CartItemScreen> {
                   vertical: 10,
                 ),
                 child: Card(
+                  color: Color(0xFFE0FBE2),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
@@ -63,14 +66,31 @@ class _CartItemScreenState extends State<CartItemScreen> {
                       children: [
                         CircleAvatar(
                           radius: 40,
-                          backgroundImage: NetworkImage(
-                            cartProduct.productImages[0],
+                          child: CachedNetworkImage(
+                            imageUrl:  cartProduct.productImages[0],
+                            fit: BoxFit.contain,
+                            width: 45.w,
+                            placeholder: (context, url) => ColoredBox(
+                              color: Colors.white,
+                              child: Center(child: CupertinoActivityIndicator()),
+                            ),
+                            errorWidget: (context, url, error) => Icon(Icons.error),
                           ),
                         ),
                         SizedBox(
                           width: 20,
                         ),
-                        Flexible(child: Text(cartProduct.productName)),
+                        Flexible(
+                            child: Text(
+                          cartProduct.productName,
+                          style: TextStyle(
+                            color: const Color(0xFF494949),
+                            fontSize: 14.sp,
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w600,
+                            height: 0.h,
+                          ),
+                        )),
                         IconButton(
                           onPressed: () async {
                             await addFirebaseController
@@ -78,9 +98,18 @@ class _CartItemScreenState extends State<CartItemScreen> {
                                     uId: user!.uid,
                                     productId: cartProduct.productId);
                           },
-                          icon: Icon(Icons.remove_circle),
+                          icon: Icon(Icons.remove_circle,color: Color(0xFFCF1919),),
                         ),
-                        Text('${cartProduct.productQuantity}'),
+                        Text(
+                          '${cartProduct.productQuantity}',
+                          style: TextStyle(
+                            color: const Color(0xFF494949),
+                            fontSize: 14.sp,
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w600,
+                            height: 0.h,
+                          ),
+                        ),
                         IconButton(
                           onPressed: () async {
                             await addFirebaseController
@@ -88,8 +117,19 @@ class _CartItemScreenState extends State<CartItemScreen> {
                                     uId: user!.uid,
                                     productId: cartProduct.productId);
                           },
-                          icon: Icon(Icons.add_circle),
+                          icon: Icon(Icons.add_circle,color: Color(0xFF007C39)),
                         ),
+                        Flexible(
+                            child: Text(
+                          ' ₹${cartProduct.productTotalPrice}',
+                          style: TextStyle(
+                            color: const Color(0xFF47002B),
+                            fontSize: 14.sp,
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w600,
+                            height: 0.h,
+                          ),
+                        )),
                       ],
                     ),
                   ),
