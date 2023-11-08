@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
 import '../../controller/google_auth_controller.dart';
-import '../home_screen.dart';
+import '../widgets/home_screen.dart';
 import 'email_validation_screen.dart';
 
 class SignUpScreen extends StatefulWidget {

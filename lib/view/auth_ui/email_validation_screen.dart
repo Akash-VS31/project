@@ -1,5 +1,5 @@
 import 'package:deal_ninja_spectrum/view/auth_ui/welcome_screen.dart';
-import 'package:deal_ninja_spectrum/view/home_screen.dart';
+import 'package:deal_ninja_spectrum/view/widgets/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

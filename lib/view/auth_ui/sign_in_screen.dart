@@ -11,7 +11,7 @@ import 'package:get/get_core/src/get_main.dart';
 import '../../controller/email_pass_controller.dart';
 import '../../controller/google_auth_controller.dart';
 import '../../services/validations/validator.dart';
-import '../home_screen.dart';
+import '../widgets/home_screen.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});

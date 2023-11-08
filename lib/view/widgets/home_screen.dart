@@ -21,18 +21,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  static List<Widget> _pages = <Widget>[
-    HomeScreen(),
-    NotificationScreen(),
-    CartScreen(),
-    SettingsScreen()
-  ];
-  int _currentSelectedIndex = 0;
-  void _onTabTapped(int index) {
-    setState(() {
-      _currentSelectedIndex = index;
-    });
-  }
+
 
   Widget getTextField({required String hint, required var icons}) {
     return TextFormField(
@@ -378,38 +367,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ])),
-        bottomNavigationBar: BottomNavigationBar(
-          selectedItemColor: const Color(0xFF1F41BB),
-          selectedLabelStyle: TextStyle(
-            fontFamily: 'Poppins',
-            fontSize: 12.sp,
-          ),
-          unselectedItemColor: Colors.black54,
-          currentIndex: _currentSelectedIndex,
-          onTap: _onTabTapped,
-          items: const [
-            BottomNavigationBarItem(
-              backgroundColor: Color(0xFFF4EFEF),
-              icon: Icon(Icons.home),
-              label: "Home",
-            ),
-            BottomNavigationBarItem(
-              backgroundColor: Color(0xFFF4EFEF),
-              icon: Icon(Icons.notifications),
-              label: "Notifications",
-            ),
-            BottomNavigationBarItem(
-              backgroundColor: Color(0xFFF4EFEF),
-              icon: Icon(Icons.shopping_cart),
-              label: "Cart",
-            ),
-            BottomNavigationBarItem(
-              backgroundColor: Color(0xFFF4EFEF),
-              icon: Icon(Icons.settings),
-              label: "Settings",
-            ),
-          ],
-        ),
       ),
     );
   }
