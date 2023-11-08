@@ -1,16 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:deal_ninja_spectrum/view/widgets/home_screen.dart';
+import 'package:deal_ninja_spectrum/view/main_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../controller/add_product_controller.dart';
-import '../../model/cart_model.dart';
 import '../../model/product-model.dart';
+
 
 class ProductDetailScreen extends StatefulWidget {
   ProductModel productModel;
@@ -30,7 +30,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         automaticallyImplyLeading: true,
         leading: IconButton(
             onPressed: () {
-              Get.off(() => const HomeScreen(),
+              Get.off(() => const MainPage(),
                   transition: Transition.leftToRightWithFade);
             },
             icon: Icon(CupertinoIcons.back)),
@@ -160,7 +160,14 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                               color: const Color(0xFF1F41BB),
                               borderRadius: BorderRadius.circular(20.0)),
                           child: TextButton(
-                              onPressed: () {},
+                              onPressed: () async {
+                                int phone = 9400377390;
+                                var whatsappUrl = "whatsapp://send?phone=$phone";
+                                var uri = Uri.parse(whatsappUrl);
+                                await launchUrl(uri)
+                                    ? launchUrl(uri)
+                                    : print("Open WhatsApp app link or show a snackbar with a notification that WhatsApp is not installed.");
+                              },
                               child: Row(
                                 children: [
                                   SizedBox(

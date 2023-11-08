@@ -29,6 +29,7 @@ class _CartItemScreenState extends State<CartItemScreen> {
         backgroundColor: const Color(0xFF1F41BB),
         title: Text("Cart"),
         centerTitle: true,
+        automaticallyImplyLeading: false,
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance

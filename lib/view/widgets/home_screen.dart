@@ -5,7 +5,7 @@ import 'package:deal_ninja_spectrum/view/widgets/banner-widget.dart';
 import 'package:deal_ninja_spectrum/view/widgets/cart_screen.dart';
 import 'package:deal_ninja_spectrum/view/widgets/cart_screen/cart_screen.dart';
 import 'package:deal_ninja_spectrum/view/widgets/category-widget.dart';
-import 'package:deal_ninja_spectrum/view/widgets/notification_screen.dart';
+import 'package:deal_ninja_spectrum/view/widgets/favourite_screen.dart';
 import 'package:deal_ninja_spectrum/view/widgets/settings_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -296,11 +296,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             backgroundColor: const Color(0xFF1F41BB),
             elevation: 0,
-            actions: [
-              IconButton(onPressed: () {
-                Get.to(CartItemScreen());
-              }, icon: Icon(CupertinoIcons.cart))
-            ]),
+           ),
         body: SafeArea(
             child: Stack(children: [
           Container(

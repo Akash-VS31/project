@@ -48,6 +48,7 @@ dependencies:
   image_card: ^0.0.4
   firebase_messaging: ^14.7.3
   pinput: ^3.0.1
+  url_launcher: ^6.2.1
 
 dev_dependencies:
   flutter_test:

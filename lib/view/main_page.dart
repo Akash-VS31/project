@@ -1,6 +1,6 @@
 import 'package:deal_ninja_spectrum/view/widgets/cart_screen.dart';
 import 'package:deal_ninja_spectrum/view/widgets/home_screen.dart';
-import 'package:deal_ninja_spectrum/view/widgets/notification_screen.dart';
+import 'package:deal_ninja_spectrum/view/widgets/favourite_screen.dart';
 import 'package:deal_ninja_spectrum/view/widgets/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,7 +14,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   static List<Widget> _pages = <Widget>[
     HomeScreen(),
-    NotificationScreen(),
+    FavouriteScreen(),
     CartItemScreen(),
     SettingsScreen()
   ];
