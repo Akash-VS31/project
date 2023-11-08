@@ -56,16 +56,17 @@ class CategoriesWidget extends StatelessWidget {
                   child: GestureDetector(
                       onTap: () => Get.to(() => AllSingleCategoryProductsScreen(
                           categoryId: categoriesModel.categoryId)),
-                      child: Container(
+                      child: SizedBox(
+                        height: 100.h,
                         child: Column(
                           children: [
                             CircleAvatar(
                               backgroundColor: Color(0xFFC0C0C0),
-                              radius: 40,
+                              radius: 35.r,
                               child: CachedNetworkImage(
                                 imageUrl: categoriesModel.categoryImg,
                                 fit: BoxFit.fill,
-                                width: 40,
+                                width: 45.w,
                                 placeholder: (context, url) => ColoredBox(
                                   color: Colors.white,
                                   child: Center(child: CupertinoActivityIndicator()),
@@ -74,7 +75,7 @@ class CategoriesWidget extends StatelessWidget {
                               ),
                             ),
                             SizedBox(
-                              height: 8,
+                              height: 8.h,
                             ),
                             Text(
                               categoriesModel.categoryName,
@@ -84,7 +85,7 @@ class CategoriesWidget extends StatelessWidget {
                                 fontSize: 14.sp,
                                 fontFamily: 'Poppins',
                                 fontWeight: FontWeight.w500,
-                                height: 0,
+                                height: 0.h,
                               ),
                             )
                           ],

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:deal_ninja_spectrum/view/auth_ui/welcome_screen.dart';
 import 'package:deal_ninja_spectrum/view/widgets/all-products-widget.dart';
 import 'package:deal_ninja_spectrum/view/widgets/banner-widget.dart';
+import 'package:deal_ninja_spectrum/view/widgets/cart_screen.dart';
 import 'package:deal_ninja_spectrum/view/widgets/cart_screen/cart_screen.dart';
 import 'package:deal_ninja_spectrum/view/widgets/category-widget.dart';
 import 'package:deal_ninja_spectrum/view/widgets/notification_screen.dart';
@@ -308,7 +309,7 @@ class _HomeScreenState extends State<HomeScreen> {
             elevation: 0,
             actions: [
               IconButton(onPressed: () {
-                Get.to(CartScreen());
+                Get.to(CartItemScreen());
               }, icon: Icon(CupertinoIcons.cart))
             ]),
         body: SafeArea(

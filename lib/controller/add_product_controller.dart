@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/snackbar/snackbar.dart';
@@ -8,6 +9,13 @@ import '../model/cart_model.dart';
 import '../model/product-model.dart';
 
 class AddFirebaseController extends GetxController {
+  User? user = FirebaseAuth.instance.currentUser;
+  @override
+  void onInit() {
+    super.onInit();
+    calculateCartTotal(user!.uid);
+  }
+
   Future<void> checkProductExistance(
       {required String uId,
       required ProductModel productModel,
@@ -73,6 +81,7 @@ class AddFirebaseController extends GetxController {
       print("product added");
     }
   }
+
   Future<void> incrementCartItemQuantity({
     required String uId,
     required String productId,
@@ -90,7 +99,7 @@ class AddFirebaseController extends GetxController {
       int currentQuantity = snapshot['productQuantity'];
       print('currentQuantity: $currentQuantity');
       double productTotalPrice =
-      double.parse('${snapshot['productTotalPrice']}');
+          double.parse('${snapshot['productTotalPrice']}');
       print('productTotalPrice: $productTotalPrice');
       int updatedQuantity = currentQuantity + quantityIncrement;
       bool isSale = bool.parse('${snapshot['isSale']}');
