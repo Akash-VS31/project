@@ -15,7 +15,6 @@ class AddFirebaseController extends GetxController {
     super.onInit();
     calculateCartTotal(user!.uid);
   }
-
   Future<void> checkProductExistance(
       {required String uId,
       required ProductModel productModel,
@@ -135,7 +134,7 @@ class AddFirebaseController extends GetxController {
       double productTotalPrice =
           double.parse('${snapshot['productTotalPrice']}');
       print('productTotalPrice: $productTotalPrice');
-      if (currentQuantity > quantityDecrement) {
+      if (currentQuantity >= quantityDecrement) {
         int updatedQuantity = currentQuantity - quantityDecrement;
         bool isSale = bool.parse('${snapshot['isSale']}');
         double unitPrice = double.parse(

@@ -18,6 +18,8 @@ class CartItemScreen extends StatefulWidget {
 }
 
 class _CartItemScreenState extends State<CartItemScreen> {
+  final addFirebaseController = Get.put(AddFirebaseController());
+  User? user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
     final addFirebaseController = Get.put(AddFirebaseController());
@@ -67,14 +69,16 @@ class _CartItemScreenState extends State<CartItemScreen> {
                         CircleAvatar(
                           radius: 40,
                           child: CachedNetworkImage(
-                            imageUrl:  cartProduct.productImages[0],
+                            imageUrl: cartProduct.productImages[0],
                             fit: BoxFit.contain,
                             width: 45.w,
                             placeholder: (context, url) => ColoredBox(
                               color: Colors.white,
-                              child: Center(child: CupertinoActivityIndicator()),
+                              child:
+                                  Center(child: CupertinoActivityIndicator()),
                             ),
-                            errorWidget: (context, url, error) => Icon(Icons.error),
+                            errorWidget: (context, url, error) =>
+                                Icon(Icons.error),
                           ),
                         ),
                         SizedBox(
@@ -98,7 +102,10 @@ class _CartItemScreenState extends State<CartItemScreen> {
                                     uId: user!.uid,
                                     productId: cartProduct.productId);
                           },
-                          icon: Icon(Icons.remove_circle,color: Color(0xFFCF1919),),
+                          icon: Icon(
+                            Icons.remove_circle,
+                            color: Color(0xFFCF1919),
+                          ),
                         ),
                         Text(
                           '${cartProduct.productQuantity}',
@@ -117,7 +124,8 @@ class _CartItemScreenState extends State<CartItemScreen> {
                                     uId: user!.uid,
                                     productId: cartProduct.productId);
                           },
-                          icon: Icon(Icons.add_circle,color: Color(0xFF007C39)),
+                          icon:
+                              Icon(Icons.add_circle, color: Color(0xFF007C39)),
                         ),
                         Flexible(
                             child: Text(
@@ -138,6 +146,72 @@ class _CartItemScreenState extends State<CartItemScreen> {
             },
           );
         },
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Color(0xFF981206),
+            borderRadius: BorderRadius.circular(15),
+          ),
+          padding: EdgeInsets.all(15.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              FutureBuilder<double>(
+                future: addFirebaseController.calculateCartTotal(user!.uid),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Text('Total : ₹Loading...',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14.sp,
+                          fontFamily: 'Poppins',
+                        ));
+                  } else if (snapshot.hasData) {
+                    double totalAmount = snapshot.data ?? 0.0;
+                    return Text(
+                      'Total : ₹${totalAmount.toStringAsFixed(2)}',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14.sp,
+                        fontFamily: 'Poppins',
+                      ),
+                    );
+                  } else {
+                    // Handle the error or show an error message.
+                    return Text('Total : ₹Error',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14.sp,
+                          fontFamily: 'Poppins',
+                        ));
+                  }
+                },
+              ),
+              ElevatedButton(
+                style: ButtonStyle(
+                    shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(9.r))),
+                    backgroundColor:
+                        const MaterialStatePropertyAll(Color(0xFF1F41BB))),
+                onPressed: () {
+                  // Implement the checkout logic here.
+                },
+                child: Text(
+                  'Checkout',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 14.sp,
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.w600,
+                    height: 0.h,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

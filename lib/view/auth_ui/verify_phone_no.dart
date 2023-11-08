@@ -1,10 +1,10 @@
 import 'dart:math';
 
-
 import 'package:deal_ninja_spectrum/view/auth_ui/phone_validation.dart';
 import 'package:deal_ninja_spectrum/view/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pinput/pinput.dart';
 
@@ -16,7 +16,7 @@ class MyVerify extends StatefulWidget {
 }
 
 class _MyVerifyState extends State<MyVerify> {
-  final FirebaseAuth auth=FirebaseAuth.instance;
+  final FirebaseAuth auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     final defaultPinTheme = PinTheme(
@@ -42,7 +42,7 @@ class _MyVerifyState extends State<MyVerify> {
         color: Color.fromRGBO(234, 239, 243, 1),
       ),
     );
-    var code="";
+    var code = "";
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -66,7 +66,6 @@ class _MyVerifyState extends State<MyVerify> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-
               SizedBox(
                 height: 25,
               ),
@@ -94,8 +93,8 @@ class _MyVerifyState extends State<MyVerify> {
                 // submittedPinTheme: submittedPinTheme,
 
                 showCursor: true,
-                onCompleted: (pin){
-                  code=pin;
+                onCompleted: (pin) {
+                  code = pin;
                 },
               ),
               SizedBox(
@@ -105,24 +104,25 @@ class _MyVerifyState extends State<MyVerify> {
                 width: double.infinity,
                 height: 45,
                 child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10))),
+                    style: ButtonStyle(
+                        shape: MaterialStatePropertyAll(
+                            RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(9.r))),
+                        backgroundColor: const MaterialStatePropertyAll(
+                            Color(0xFF1F41BB))),
                     onPressed: () async {
-                      try{
+                      try {
                         // Create a PhoneAuthCredential with the code
-                        PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: MyPhone.verify, smsCode: code);
+                        PhoneAuthCredential credential =
+                            PhoneAuthProvider.credential(
+                                verificationId: MyPhone.verify, smsCode: code);
 
                         // Sign the user in (or link) with the credential
                         await auth.signInWithCredential(credential);
                         Get.off(HomeScreen());
-
-                      }catch(e)
-                      {
+                      } catch (e) {
                         print("Wrong OTP");
                       }
-
-
                     },
                     child: Text("Verify Phone Number")),
               ),
@@ -130,7 +130,7 @@ class _MyVerifyState extends State<MyVerify> {
                 children: [
                   TextButton(
                       onPressed: () {
-                       Get.off(()=>MyPhone());
+                        Get.off(() => MyPhone());
                       },
                       child: Text(
                         "Edit Phone Number ?",
