@@ -10,11 +10,16 @@ import '../model/product-model.dart';
 
 class AddFirebaseController extends GetxController {
   User? user = FirebaseAuth.instance.currentUser;
+  num totalPriceFinal = 0;
+  num cartTotal = 0.0;
   @override
   void onInit() {
     super.onInit();
-    calculateCartTotal(user!.uid);
+    // calculateCartTotal(user!.uid).then((total) {
+    //   cartTotal = total;
+    // });
   }
+
   Future<void> checkProductExistance(
       {required String uId,
       required ProductModel productModel,
@@ -154,22 +159,23 @@ class AddFirebaseController extends GetxController {
     }
   }
 
-  Future<double> calculateCartTotal(String uId) async {
-    double cartTotal = 0.0;
-
-    final QuerySnapshot cartSnapshot = await FirebaseFirestore.instance
+  Future<num> calculatingTotalPrice(String uId) async {
+    double totalPrice = 0.0;
+    QuerySnapshot qn = await FirebaseFirestore.instance
         .collection('cart')
         .doc(uId)
         .collection('cartOrders')
         .get();
 
-    for (final DocumentSnapshot cartItem in cartSnapshot.docs) {
-      final int productQuantity = cartItem['productQuantity'];
-      final double productTotalPrice =
-          double.parse(cartItem['productTotalPrice']);
-      cartTotal += (productTotalPrice * productQuantity);
+    for (int i = 0; i < qn.docs.length; i++) {
+      final productTotalPrice = qn.docs[i]["productTotalPrice"];
+      if (productTotalPrice is double) {
+        totalPrice += productTotalPrice;
+      }
     }
 
-    return cartTotal;
+    totalPriceFinal = totalPrice;
+    print('totsl $totalPriceFinal');
+    return totalPriceFinal;
   }
 }

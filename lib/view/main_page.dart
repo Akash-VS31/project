@@ -45,8 +45,8 @@ class _MainPageState extends State<MainPage> {
           ),
           BottomNavigationBarItem(
             backgroundColor: Color(0xFFF4EFEF),
-            icon: Icon(Icons.notifications),
-            label: "Notifications",
+            icon: Icon(Icons.favorite),
+            label: "Favorite",
           ),
           BottomNavigationBarItem(
             backgroundColor: Color(0xFFF4EFEF),

@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
 import '../../controller/google_auth_controller.dart';
+import '../main_page.dart';
 import '../widgets/home_screen.dart';
 import 'email_validation_screen.dart';
 
@@ -201,7 +202,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               final user = googleController.user.value;
                               print(user);
                               if (user != null) {
-                                Get.off(() => HomeScreen());
+                                Get.off(() => MainPage());
                               }
                             }
                           });
@@ -261,7 +262,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             final user = googleController.user.value;
                             print(user);
                             if (user != null) {
-                              Get.off(() => HomeScreen());
+                              Get.off(() => MainPage());
                             }
                           }
                         });

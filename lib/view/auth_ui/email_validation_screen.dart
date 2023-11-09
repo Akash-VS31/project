@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
 import '../../controller/email_validation_controller.dart';
+import '../main_page.dart';
 
 class EmailValidationScreen extends StatefulWidget {
   final User user;
@@ -150,7 +151,7 @@ class _EmailValidationScreenState extends State<EmailValidationScreen> {
                           User? user = await emailValidationController.refreshEmail(widget.user);
                           if (user != null && user.emailVerified) {
                             Get.snackbar('Success : ', 'Email has been verified successfully');
-                            Get.off(HomeScreen());
+                            Get.off(MainPage());
                           }else{
                             Get.snackbar('Failed : ', 'Email has been not verified check your mail');
                           }

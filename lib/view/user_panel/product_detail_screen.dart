@@ -161,7 +161,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                               borderRadius: BorderRadius.circular(20.0)),
                           child: TextButton(
                               onPressed: () async {
-                                int phone = 9400377390;
+                                int phone = 919400377390;
                                 var whatsappUrl = "whatsapp://send?phone=$phone";
                                 var uri = Uri.parse(whatsappUrl);
                                 await launchUrl(uri)
