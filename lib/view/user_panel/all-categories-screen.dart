@@ -160,8 +160,8 @@ class _AllSingleCategoryProductsScreenState
                                     onPressed: () async {
                                       await addFirebaseController
                                           .checkProductExistance(
-                                              uId: user!.uid,
-                                              productModel: productModel);
+                                          uId: user!.uid,
+                                          productModel: productModel);
                                     }),
                               ),
                             )

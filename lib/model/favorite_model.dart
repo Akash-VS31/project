@@ -1,6 +1,4 @@
-// ignore_for_file: file_names
-
-class CartModel {
+class FavoriteModel {
   final String productId;
   final String categoryId;
   final String productName;
@@ -16,7 +14,7 @@ class CartModel {
   final int productQuantity;
   final double productTotalPrice;
 
-  CartModel({
+  FavoriteModel({
     required this.productId,
     required this.categoryId,
     required this.productName,
@@ -52,8 +50,8 @@ class CartModel {
     };
   }
 
-  factory CartModel.fromMap(Map<String, dynamic> json) {
-    return CartModel(
+  factory FavoriteModel.fromMap(Map<String, dynamic> json) {
+    return FavoriteModel(
         productId: json['productId'],
         categoryId: json['categoryId'],
         productName: json['productName'],

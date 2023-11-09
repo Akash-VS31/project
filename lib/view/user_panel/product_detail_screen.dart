@@ -44,18 +44,18 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
           CarouselSlider(
             items: widget.productModel.productImages
                 .map((imageUrls) => ClipRRect(
-                      borderRadius: BorderRadius.circular(8.0),
-                      child: CachedNetworkImage(
-                        imageUrl: imageUrls,
-                        fit: BoxFit.fill,
-                        width: 150,
-                        placeholder: (context, url) => ColoredBox(
-                          color: Colors.white,
-                          child: Center(child: CupertinoActivityIndicator()),
-                        ),
-                        errorWidget: (context, url, error) => Icon(Icons.error),
-                      ),
-                    ))
+              borderRadius: BorderRadius.circular(8.0),
+              child: CachedNetworkImage(
+                imageUrl: imageUrls,
+                fit: BoxFit.fill,
+                width: 150,
+                placeholder: (context, url) => ColoredBox(
+                  color: Colors.white,
+                  child: Center(child: CupertinoActivityIndicator()),
+                ),
+                errorWidget: (context, url, error) => Icon(Icons.error),
+              ),
+            ))
                 .toList(),
             options: CarouselOptions(
                 scrollDirection: Axis.horizontal,
@@ -85,7 +85,13 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                 fontSize: 18.sp,
                                 fontWeight: FontWeight.w800),
                           ),
-                          Icon(Icons.favorite_border_outlined)
+                          IconButton(onPressed: () async {
+                            await addFirebaseController
+                                .addFavoriteItem(
+                                uId: user!.uid,
+                                productModel: widget.productModel);
+                          }, icon: Icon(Icons.favorite_border_outlined)),
+
                         ]),
                   ),
                 ),
@@ -97,23 +103,23 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     child: Row(
                       children: [
                         widget.productModel.isSale == true &&
-                                widget.productModel.salePrice != ''
+                            widget.productModel.salePrice != ''
                             ? Text(
-                                "₹ ${widget.productModel.salePrice}",
-                                style: TextStyle(
-                                    color: Color(0xFF519B58),
-                                    fontFamily: 'Poppins',
-                                    fontSize: 18.sp,
-                                    fontWeight: FontWeight.w800),
-                              )
+                          "₹ ${widget.productModel.salePrice}",
+                          style: TextStyle(
+                              color: Color(0xFF519B58),
+                              fontFamily: 'Poppins',
+                              fontSize: 18.sp,
+                              fontWeight: FontWeight.w800),
+                        )
                             : Text(
-                                "₹${widget.productModel.fullPrice}",
-                                style: TextStyle(
-                                    color: Color(0xFF519B58),
-                                    fontFamily: 'Poppins',
-                                    fontSize: 18.sp,
-                                    fontWeight: FontWeight.w800),
-                              ),
+                          "₹${widget.productModel.fullPrice}",
+                          style: TextStyle(
+                              color: Color(0xFF519B58),
+                              fontFamily: 'Poppins',
+                              fontSize: 18.sp,
+                              fontWeight: FontWeight.w800),
+                        ),
                       ],
                     ),
                   ),
@@ -205,8 +211,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                               onPressed: () async {
                                 await addFirebaseController
                                     .checkProductExistance(
-                                        uId: user!.uid,
-                                        productModel: widget.productModel);
+                                    uId: user!.uid,
+                                    productModel: widget.productModel);
                               },
                               child: Text("Add to cart",
                                   style: TextStyle(

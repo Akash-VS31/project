@@ -18,8 +18,6 @@ class CartItemScreen extends StatefulWidget {
 }
 
 class _CartItemScreenState extends State<CartItemScreen> {
-  final addFirebaseController = Get.put(AddFirebaseController());
-  User? user = FirebaseAuth.instance.currentUser;
   num totalPriceFinal = 0;
   @override
   Widget build(BuildContext context) {
@@ -65,7 +63,7 @@ class _CartItemScreenState extends State<CartItemScreen> {
               itemBuilder: (context, index) {
                 final cartItem = cartItems[index];
                 final cartProduct =
-                    CartModel.fromMap(cartItem.data() as Map<String, dynamic>);
+                CartModel.fromMap(cartItem.data() as Map<String, dynamic>);
                 return Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 20.0,
@@ -87,7 +85,7 @@ class _CartItemScreenState extends State<CartItemScreen> {
                               placeholder: (context, url) => ColoredBox(
                                 color: Colors.white,
                                 child:
-                                    Center(child: CupertinoActivityIndicator()),
+                                Center(child: CupertinoActivityIndicator()),
                               ),
                               errorWidget: (context, url, error) =>
                                   Icon(Icons.error),
@@ -98,21 +96,21 @@ class _CartItemScreenState extends State<CartItemScreen> {
                           ),
                           Flexible(
                               child: Text(
-                            cartProduct.productName,
-                            style: TextStyle(
-                              color: const Color(0xFF494949),
-                              fontSize: 14.sp,
-                              fontFamily: 'Poppins',
-                              fontWeight: FontWeight.w600,
-                              height: 0.h,
-                            ),
-                          )),
+                                cartProduct.productName,
+                                style: TextStyle(
+                                  color: const Color(0xFF494949),
+                                  fontSize: 14.sp,
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w600,
+                                  height: 0.h,
+                                ),
+                              )),
                           IconButton(
                             onPressed: () async {
                               await addFirebaseController
                                   .decrementCartItemQuantity(
-                                      uId: user!.uid,
-                                      productId: cartProduct.productId);
+                                  uId: user!.uid,
+                                  productId: cartProduct.productId);
                             },
                             icon: Icon(
                               Icons.remove_circle,
@@ -133,23 +131,23 @@ class _CartItemScreenState extends State<CartItemScreen> {
                             onPressed: () async {
                               await addFirebaseController
                                   .incrementCartItemQuantity(
-                                      uId: user!.uid,
-                                      productId: cartProduct.productId);
+                                  uId: user!.uid,
+                                  productId: cartProduct.productId);
                             },
                             icon:
-                                Icon(Icons.add_circle, color: Color(0xFF007C39)),
+                            Icon(Icons.add_circle, color: Color(0xFF007C39)),
                           ),
                           Flexible(
                               child: Text(
-                            ' ₹${cartProduct.productTotalPrice}',
-                            style: TextStyle(
-                              color: const Color(0xFF47002B),
-                              fontSize: 14.sp,
-                              fontFamily: 'Poppins',
-                              fontWeight: FontWeight.w600,
-                              height: 0.h,
-                            ),
-                          )),
+                                ' ₹${cartProduct.productTotalPrice}',
+                                style: TextStyle(
+                                  color: const Color(0xFF47002B),
+                                  fontSize: 14.sp,
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w600,
+                                  height: 0.h,
+                                ),
+                              )),
                         ],
                       ),
                     ),
@@ -190,7 +188,7 @@ class _CartItemScreenState extends State<CartItemScreen> {
                       shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(9.r))),
                       backgroundColor:
-                          const MaterialStatePropertyAll(Color(0xFF1F41BB))),
+                      const MaterialStatePropertyAll(Color(0xFF1F41BB))),
                   onPressed: () {
                     addFirebaseController.calculatingTotalPrice(user.uid!);
                   },
