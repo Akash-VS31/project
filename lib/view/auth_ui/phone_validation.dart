@@ -26,138 +26,140 @@ class _MyPhoneState extends State<MyPhone> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        leading: IconButton(
-          onPressed: () {
-            Get.off(const WelcomeScreen(),
-                transition: Transition.leftToRightWithFade);
-          },
-          icon: const Icon(
-            Icons.arrow_back_ios_rounded,
-            color: Colors.black,
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          leading: IconButton(
+            onPressed: () {
+              Get.off(const WelcomeScreen(),
+                  transition: Transition.leftToRightWithFade);
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios_rounded,
+              color: Colors.black,
+            ),
           ),
+          elevation: 0,
         ),
-        elevation: 0,
-      ),
-      body: Container(
-        margin: const EdgeInsets.only(left: 25, right: 25),
-        alignment: Alignment.center,
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: 25.h,
-              ),
-              Text(
-                "Phone Verification",
-                style: TextStyle(
-                  color: const Color(0xFF494949),
-                  fontSize: 20.sp,
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w800,
-                  height: 0.h,
+        body: Container(
+          margin: const EdgeInsets.only(left: 25, right: 25),
+          alignment: Alignment.center,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: 25.h,
                 ),
-              ),
-              SizedBox(
-                height: 10.h,
-              ),
-              Text(
-                "We need to register your phone without getting started!",
-                style: TextStyle(
-                  color: const Color(0xFF494949),
-                  fontSize: 14.sp,
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w400,
-                  height: 0.h,
+                Text(
+                  "Phone Verification",
+                  style: TextStyle(
+                    color: const Color(0xFF494949),
+                    fontSize: 20.sp,
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.w800,
+                    height: 0.h,
+                  ),
                 ),
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(
-                height: 30.h,
-              ),
-              Container(
-                height: 55.h,
-                decoration: BoxDecoration(
-                    border: Border.all(width: 1.w, color: Colors.grey),
-                    borderRadius: BorderRadius.circular(10)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: 10.w,
-                    ),
-                    SizedBox(
-                      width: 40.w,
-                      child: TextField(
-                        controller: countryController,
-                        keyboardType: TextInputType.number,
-                        decoration: const InputDecoration(
-                          border: InputBorder.none,
+                SizedBox(
+                  height: 10.h,
+                ),
+                Text(
+                  "We need to register your phone without getting started!",
+                  style: TextStyle(
+                    color: const Color(0xFF494949),
+                    fontSize: 14.sp,
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.w400,
+                    height: 0.h,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(
+                  height: 30.h,
+                ),
+                Container(
+                  height: 55.h,
+                  decoration: BoxDecoration(
+                      border: Border.all(width: 1.w, color: Colors.grey),
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: 10.w,
+                      ),
+                      SizedBox(
+                        width: 40.w,
+                        child: TextField(
+                          controller: countryController,
+                          keyboardType: TextInputType.number,
+                          decoration: const InputDecoration(
+                            border: InputBorder.none,
+                          ),
                         ),
                       ),
-                    ),
-                    Text(
-                      "|",
-                      style: TextStyle(
-                        color: const Color(0xFF494949),
-                        fontSize: 20.sp,
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w600,
-                        height: 0.h,
+                      Text(
+                        "|",
+                        style: TextStyle(
+                          color: const Color(0xFF494949),
+                          fontSize: 20.sp,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w600,
+                          height: 0.h,
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      width: 10.w,
-                    ),
-                    Expanded(
-                        child: TextField(
-                      onChanged: (value) {
-                        phone = value;
-                      },
-                      keyboardType: TextInputType.phone,
-                      decoration: const InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "Phone",
+                      SizedBox(
+                        width: 10.w,
                       ),
-                    ))
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 20.h,
-              ),
-              SizedBox(
-                width: double.infinity,
-                height: 45.h,
-                child: ElevatedButton(
-                    style: ButtonStyle(
-                        shape: MaterialStatePropertyAll(RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(9.r))),
-                        backgroundColor:
-                            const MaterialStatePropertyAll(Color(0xFF1F41BB))),
-                    onPressed: () async {
-                      await FirebaseAuth.instance.verifyPhoneNumber(
-                        phoneNumber: '${countryController.text + phone}',
-                        verificationCompleted:
-                            (PhoneAuthCredential credential) {},
-                        verificationFailed: (FirebaseAuthException e) {},
-                        codeSent: (String verificationId, int? resendToken) {
-                          MyPhone.verify = verificationId;
-                          Get.to(const MyVerify(),
-                              transition: Transition.leftToRightWithFade);
+                      Expanded(
+                          child: TextField(
+                        onChanged: (value) {
+                          phone = value;
                         },
-                        codeAutoRetrievalTimeout: (String verificationId) {},
-                      );
-                    },
-                    child: const Text(
-                      "Send the code",
-                      style: TextStyle(),
-                    )),
-              )
-            ],
+                        keyboardType: TextInputType.phone,
+                        decoration: const InputDecoration(
+                          border: InputBorder.none,
+                          hintText: "Phone",
+                        ),
+                      ))
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 20.h,
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  height: 45.h,
+                  child: ElevatedButton(
+                      style: ButtonStyle(
+                          shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(9.r))),
+                          backgroundColor:
+                              const MaterialStatePropertyAll(Color(0xFF1F41BB))),
+                      onPressed: () async {
+                        await FirebaseAuth.instance.verifyPhoneNumber(
+                          phoneNumber: '${countryController.text + phone}',
+                          verificationCompleted:
+                              (PhoneAuthCredential credential) {},
+                          verificationFailed: (FirebaseAuthException e) {},
+                          codeSent: (String verificationId, int? resendToken) {
+                            MyPhone.verify = verificationId;
+                            Get.to(const MyVerify(),
+                                transition: Transition.leftToRightWithFade);
+                          },
+                          codeAutoRetrievalTimeout: (String verificationId) {},
+                        );
+                      },
+                      child: const Text(
+                        "Send the code",
+                        style: TextStyle(),
+                      )),
+                )
+              ],
+            ),
           ),
         ),
       ),

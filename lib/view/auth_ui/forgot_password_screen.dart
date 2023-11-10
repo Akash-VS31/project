@@ -54,135 +54,137 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        leading: IconButton(
-          onPressed: () {
-            Get.off(const WelcomeScreen(),
-                transition: Transition.leftToRightWithFade);
-          },
-          icon: const Icon(
-            Icons.arrow_back_ios_rounded,
-            color: Colors.black,
-          ),
-        ),
-        elevation: 0,
-      ),
-      body: Stack(children: [
-        Container(
-      decoration: const BoxDecoration(color: Colors.white),
-        ),
-        SingleChildScrollView(
-      physics: const ClampingScrollPhysics(),
-      child: Column(
-        children: [
-          SizedBox(
-            height: 97.h,
-          ),
-          Container(
-            alignment: Alignment.center,
-            child: Text(
-              'Forgot password',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontFamily: 'Poppins',
-                color: const Color(0xFF1F41BB),
-                fontSize: 30.sp,
-                fontWeight: FontWeight.w700,
-                height: 0.h,
-              ),
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          leading: IconButton(
+            onPressed: () {
+              Get.off(const WelcomeScreen(),
+                  transition: Transition.leftToRightWithFade);
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios_rounded,
+              color: Colors.black,
             ),
           ),
-          SizedBox(
-            height: 20.h,
-          ),
+          elevation: 0,
+        ),
+        body: Stack(children: [
           Container(
-            alignment: Alignment.center,
-            child: Text(
-              'Please enter your email address.You will recive \na link to create a new password via email.',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.black,
-                fontFamily: 'Poppins',
-                fontSize: 12.sp,
-                fontWeight: FontWeight.w400,
-                height: 0,
-              ),
+        decoration: const BoxDecoration(color: Colors.white),
+          ),
+          SingleChildScrollView(
+        physics: const ClampingScrollPhysics(),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 97.h,
             ),
-          ),
-          SizedBox(
-            height: 53.h,
-          ),
-          Form(
-            key: _formKey,
-            child: Container(
-              width: 357.w,
-              height: 428.h,
+            Container(
               alignment: Alignment.center,
-              child: Column(children: [
-                SizedBox(
-                  height: 26.h,
+              child: Text(
+                'Forgot password',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontFamily: 'Poppins',
+                  color: const Color(0xFF1F41BB),
+                  fontSize: 30.sp,
+                  fontWeight: FontWeight.w700,
+                  height: 0.h,
                 ),
-                getTextField(
-                    validator: (value) => Validator.validateEmail(
-                          email: value,
-                        ),
-                    hint: "Email",
-                    icons: const Icon(Icons.email),
-                    controller: _forgotPassController),
-                SizedBox(
-                  height: 25.h,
+              ),
+            ),
+            SizedBox(
+              height: 20.h,
+            ),
+            Container(
+              alignment: Alignment.center,
+              child: Text(
+                'Please enter your email address.You will recive \na link to create a new password via email.',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontFamily: 'Poppins',
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w400,
+                  height: 0,
                 ),
-                SizedBox(
-                  width: 357.w,
-                  height: 50.h,
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                        shape: MaterialStatePropertyAll(
-                            RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(9.r))),
-                        backgroundColor: const MaterialStatePropertyAll(
-                            Color(0xFF1F41BB))),
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        String email = _forgotPassController.text.trim();
-                        print(email);
-                        if (email.isEmpty) {
-                          Get.snackbar(
-                            "Error",
-                            "Please enter all details",
-                            snackPosition: SnackPosition.BOTTOM,
-                          );
-                        } else {
+              ),
+            ),
+            SizedBox(
+              height: 53.h,
+            ),
+            Form(
+              key: _formKey,
+              child: Container(
+                width: 357.w,
+                height: 428.h,
+                alignment: Alignment.center,
+                child: Column(children: [
+                  SizedBox(
+                    height: 26.h,
+                  ),
+                  getTextField(
+                      validator: (value) => Validator.validateEmail(
+                            email: value,
+                          ),
+                      hint: "Email",
+                      icons: const Icon(Icons.email),
+                      controller: _forgotPassController),
+                  SizedBox(
+                    height: 25.h,
+                  ),
+                  SizedBox(
+                    width: 357.w,
+                    height: 50.h,
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                          shape: MaterialStatePropertyAll(
+                              RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(9.r))),
+                          backgroundColor: const MaterialStatePropertyAll(
+                              Color(0xFF1F41BB))),
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
                           String email = _forgotPassController.text.trim();
-                          emailPassController.ForgetPasswordMethod(email);
+                          print(email);
+                          if (email.isEmpty) {
+                            Get.snackbar(
+                              "Error",
+                              "Please enter all details",
+                              snackPosition: SnackPosition.BOTTOM,
+                            );
+                          } else {
+                            String email = _forgotPassController.text.trim();
+                            emailPassController.ForgetPasswordMethod(email);
+                          }
                         }
-                      }
-                    },
-                    child: Text(
-                      'Rest password',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontFamily: 'Poppins',
-                        color: Colors.white,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w600,
-                        height: 0,
+                      },
+                      child: Text(
+                        'Rest password',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          color: Colors.white,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w600,
+                          height: 0,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: 30.h,
-                ),
-              ]),
+                  SizedBox(
+                    height: 30.h,
+                  ),
+                ]),
+              ),
             ),
-          ),
-        ],
-      ),
+          ],
         ),
-      ]),
+          ),
+        ]),
+      ),
     );
   }
 }

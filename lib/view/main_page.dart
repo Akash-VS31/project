@@ -29,42 +29,44 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: DrawerWidget(),
-      body: _pages[_currentSelectedIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: const Color(0xFF1F41BB),
-        selectedLabelStyle:  TextStyle(
-        color: Colors.red,
-        fontFamily: 'Poppins',
-        fontSize: 12.sp,
-        fontWeight: FontWeight.w400,
-      ),
-        unselectedItemColor: Colors.black54,
-        currentIndex: _currentSelectedIndex,
-        onTap: _onTabTapped,
-        items: const [
-          BottomNavigationBarItem(
-            backgroundColor: Color(0xFFF4EFEF),
-            icon: Icon(Icons.home),
-            label: "Home",
-          ),
-          BottomNavigationBarItem(
-            backgroundColor: Color(0xFFF4EFEF),
-            icon: Icon(Icons.favorite),
-            label: "Favorite",
-          ),
-          BottomNavigationBarItem(
-            backgroundColor: Color(0xFFF4EFEF),
-            icon: Icon(Icons.shopping_cart),
-            label: "Cart",
-          ),
-          BottomNavigationBarItem(
-            backgroundColor: Color(0xFFF4EFEF),
-            icon: Icon(Icons.settings),
-            label: "Settings",
-          ),
-        ],
+    return SafeArea(
+      child: Scaffold(
+        drawer: DrawerWidget(),
+        body: _pages[_currentSelectedIndex],
+        bottomNavigationBar: BottomNavigationBar(
+          selectedItemColor: const Color(0xFF1F41BB),
+          selectedLabelStyle:  TextStyle(
+          color: Colors.red,
+          fontFamily: 'Poppins',
+          fontSize: 12.sp,
+          fontWeight: FontWeight.w400,
+        ),
+          unselectedItemColor: Colors.black54,
+          currentIndex: _currentSelectedIndex,
+          onTap: _onTabTapped,
+          items: const [
+            BottomNavigationBarItem(
+              backgroundColor: Color(0xFFF4EFEF),
+              icon: Icon(Icons.home),
+              label: "Home",
+            ),
+            BottomNavigationBarItem(
+              backgroundColor: Color(0xFFF4EFEF),
+              icon: Icon(Icons.favorite),
+              label: "Favorite",
+            ),
+            BottomNavigationBarItem(
+              backgroundColor: Color(0xFFF4EFEF),
+              icon: Icon(Icons.shopping_cart),
+              label: "Cart",
+            ),
+            BottomNavigationBarItem(
+              backgroundColor: Color(0xFFF4EFEF),
+              icon: Icon(Icons.settings),
+              label: "Settings",
+            ),
+          ],
+        ),
       ),
     );
   }
