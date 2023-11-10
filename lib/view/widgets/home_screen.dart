@@ -58,8 +58,11 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        drawer: DrawerWidget(),
         appBar: AppBar(
+          leading:  IconButton(
+              icon: Icon(Icons.menu),
+              onPressed: () => Scaffold.of(context).openDrawer()
+          ),
             primary: false,
             bottom: PreferredSize(
               preferredSize: Size.fromHeight(

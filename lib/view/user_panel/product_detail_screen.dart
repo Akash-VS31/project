@@ -28,12 +28,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
-        leading: IconButton(
-            onPressed: () {
-              Get.off(() => const MainPage(),
-                  transition: Transition.leftToRightWithFade);
-            },
-            icon: Icon(CupertinoIcons.back)),
+          leading: IconButton(
+              onPressed: () =>
+                  Get.off(MainPage(), transition: Transition.leftToRightWithFade),
+              icon: Icon(CupertinoIcons.back)),
         backgroundColor: const Color(0xFF1F41BB),
       ),
       body: Container(

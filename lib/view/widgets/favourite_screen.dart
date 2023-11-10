@@ -25,6 +25,10 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          leading:  IconButton(
+              icon: Icon(Icons.menu),
+              onPressed: () => Scaffold.of(context).openDrawer()
+          ),
           backgroundColor: const Color(0xFF1F41BB),
           title: Text("Favourite"),
           centerTitle: true,

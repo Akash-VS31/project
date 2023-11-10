@@ -26,6 +26,10 @@ class _CartItemScreenState extends State<CartItemScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          leading:  IconButton(
+              icon: Icon(Icons.menu),
+              onPressed: () => Scaffold.of(context).openDrawer()
+          ),
           backgroundColor: const Color(0xFF1F41BB),
           title: Text(
             "Cart",
@@ -161,7 +165,7 @@ class _CartItemScreenState extends State<CartItemScreen> {
           padding: const EdgeInsets.all(8.0),
           child: Container(
             decoration: BoxDecoration(
-              color: Color(0xFF981206),
+              color: const Color(0xFF981206),
               borderRadius: BorderRadius.circular(15),
             ),
             padding: EdgeInsets.all(15.0),
@@ -173,13 +177,19 @@ class _CartItemScreenState extends State<CartItemScreen> {
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       // While the future is still running, show a loading indicator or placeholder.
-                      return CircularProgressIndicator();
+                      return CupertinoActivityIndicator();
                     } else if (snapshot.hasError) {
                       // If there was an error, you can display an error message.
                       return Text('Error: ${snapshot.error}');
                     } else {
                       // When the future is complete, display the result using snapshot.data.
-                      return Text('${snapshot.data!.toStringAsFixed(2)}');
+                      return Text(' ₹ ${snapshot.data!.toStringAsFixed(2)}',style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14.sp,
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w600,
+                        height: 0,
+                      ),);
                     }
                   },
                 ),

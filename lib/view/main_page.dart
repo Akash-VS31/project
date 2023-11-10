@@ -1,4 +1,5 @@
 import 'package:deal_ninja_spectrum/view/widgets/cart_screen.dart';
+import 'package:deal_ninja_spectrum/view/widgets/custom-drawer-widget.dart';
 import 'package:deal_ninja_spectrum/view/widgets/home_screen.dart';
 import 'package:deal_ninja_spectrum/view/widgets/favourite_screen.dart';
 import 'package:deal_ninja_spectrum/view/widgets/settings_screen.dart';
@@ -27,6 +28,7 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: DrawerWidget(),
       body: _pages[_currentSelectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: const Color(0xFF1F41BB),

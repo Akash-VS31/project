@@ -1,7 +1,7 @@
+import 'package:deal_ninja_spectrum/view/widgets/custom-drawer-widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -25,6 +25,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
+          leading:  IconButton(
+              icon: Icon(Icons.menu),
+              onPressed: () => Scaffold.of(context).openDrawer()
+          ),
           backgroundColor: const Color(0xFF1F41BB),
           title: Text("Settings",style: TextStyle(
             color: Colors.white,
@@ -36,6 +40,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           centerTitle: true,
           automaticallyImplyLeading: false,
         ),
+        drawer: DrawerWidget(),
         body: Container(
           decoration: BoxDecoration(color: Colors.white),
           child: Column(children: [
