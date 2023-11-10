@@ -52,7 +52,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           )),
     );
   }
-
+  bool _loading = false;
   final _formKey = GlobalKey<FormState>();
   final _nameTextController = TextEditingController();
   final _emailTextController = TextEditingController();
@@ -157,6 +157,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 Color(0xFF1F41BB))),
                         onPressed: () async {
                           if (_formKey.currentState!.validate()) {
+                            setState(() {
+                              _loading = true;
+                            });
                             try {
                               await emailPassController.signupUser(
                                 _emailTextController.text,
@@ -175,10 +178,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               }
                             } catch (e) {
                               Get.snackbar('Error', e.toString());
+                            }finally{
+                              setState(() {
+                                _loading = false;
+                              });
                             }
                           }
                         },
-                        child: Text(
+                        child:  _loading
+                            ? const CircularProgressIndicator(
+                          color: Colors.white,
+                        )
+                            : Text(
                           'Sign up',
                           textAlign: TextAlign.center,
                           style: TextStyle(

@@ -55,6 +55,7 @@ class _SignInScreenState extends State<SignInScreen> {
     );
   }
 
+  bool _loading = false;
   final _formKey = GlobalKey<FormState>();
   final googleController = Get.put(GoogleAuthController());
   final _emailTextController = TextEditingController();
@@ -163,47 +164,59 @@ class _SignInScreenState extends State<SignInScreen> {
                       height: 15.h,
                     ),
                     SizedBox(
-                      width: 357.w,
-                      height: 50.h,
-                      child: ElevatedButton(
-                        style: ButtonStyle(
-                            shape: MaterialStatePropertyAll(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(9.r))),
-                            backgroundColor: const MaterialStatePropertyAll(
-                                Color(0xFF1F41BB))),
-                        onPressed: () async {
-                          if (_formKey.currentState!.validate()) {
-                            try {
-                              UserCredential? userCredential =
-                                  await emailPassController.signinUser(
-                                _emailTextController.text,
-                                _passwordTextController.text,
-                              );
-                              if (userCredential!.user!.emailVerified) {
-                                final user = userCredential.user;
-                                Get.off(() => const HomeScreen(),
-                                    transition: Transition.leftToRightWithFade);
+                        width: 357.w,
+                        height: 50.h,
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                              shape: MaterialStatePropertyAll(
+                                  RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(9.r))),
+                              backgroundColor: const MaterialStatePropertyAll(
+                                  Color(0xFF1F41BB))),
+                          onPressed: () async {
+                            if (_formKey.currentState!.validate()) {
+                              setState(() {
+                                _loading = true;
+                              });
+                              try {
+                                UserCredential? userCredential =
+                                    await emailPassController.signinUser(
+                                  _emailTextController.text,
+                                  _passwordTextController.text,
+                                );
+                                if (userCredential!.user!.emailVerified) {
+                                  final user = userCredential.user;
+                                  Get.off(() => const MainPage(),
+                                      transition:
+                                          Transition.leftToRightWithFade);
+                                }
+                              } catch (e) {
+                                print(e);
+                              } finally {
+                                setState(() {
+                                  _loading = false;
+                                });
                               }
-                            } catch (e) {
-                              print(e);
                             }
-                          }
-                          // Get.off(const HomeScreen(), transition: Transition.leftToRightWithFade);
-                        },
-                        child: Text(
-                          'Sign in',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20.sp,
-                            fontWeight: FontWeight.w600,
-                            height: 0.h,
-                            fontFamily: 'Poppins',
-                          ),
-                        ),
-                      ),
-                    ),
+                            // Get.off(const HomeScreen(), transition: Transition.leftToRightWithFade);
+                          },
+                          child: _loading
+                              ? const CircularProgressIndicator(
+                                  color: Colors.white,
+                                )
+                              : Text(
+                                  'Sign in',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.w600,
+                                    height: 0.h,
+                                    fontFamily: 'Poppins',
+                                  ),
+                                ),
+                        )),
                     SizedBox(
                       height: 30.h,
                     ),
