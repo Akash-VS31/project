@@ -5,6 +5,7 @@ import 'package:deal_ninja_spectrum/view/widgets/favourite_screen.dart';
 import 'package:deal_ninja_spectrum/view/widgets/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
 
@@ -25,6 +26,7 @@ class _MainPageState extends State<MainPage> {
       _currentSelectedIndex = index;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

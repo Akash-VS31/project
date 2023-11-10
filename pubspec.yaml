@@ -49,6 +49,7 @@ dependencies:
   firebase_messaging: ^14.7.3
   pinput: ^3.0.1
   url_launcher: ^6.2.1
+  upi_india: ^3.0.1
 
 dev_dependencies:
   flutter_test:
