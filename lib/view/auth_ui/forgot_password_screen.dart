@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../controller/email_pass_controller.dart';
 import '../../services/validations/validator.dart';
@@ -32,11 +31,11 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           prefixIcon: icons,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.r),
-            borderSide: const BorderSide(color: Colors.transparent, width: 0),
+            borderSide: const BorderSide(color: Colors.transparent),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.r),
-            borderSide: const BorderSide(color: Colors.transparent, width: 0),
+            borderSide: const BorderSide(color: Colors.transparent),
           ),
           contentPadding:
               EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
@@ -56,6 +55,20 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        leading: IconButton(
+          onPressed: () {
+            Get.off(const WelcomeScreen(),
+                transition: Transition.leftToRightWithFade);
+          },
+          icon: const Icon(
+            Icons.arrow_back_ios_rounded,
+            color: Colors.black,
+          ),
+        ),
+        elevation: 0,
+      ),
       body: SafeArea(
           child: Stack(children: [
         Container(
@@ -78,7 +91,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     color: const Color(0xFF1F41BB),
                     fontSize: 30.sp,
                     fontWeight: FontWeight.w700,
-                    height: 0,
+                    height: 0.h,
                   ),
                 ),
               ),
@@ -154,7 +167,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                           style: TextStyle(
                             fontFamily: 'Poppins',
                             color: Colors.white,
-                            fontSize: 20.sp,
+                            fontSize: 16.sp,
                             fontWeight: FontWeight.w600,
                             height: 0,
                           ),

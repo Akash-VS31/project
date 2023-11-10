@@ -21,6 +21,7 @@ class CheckOutScreen extends StatefulWidget {
 class _CheckOutScreenState extends State<CheckOutScreen> {
   final addFirebaseController = Get.put(AddFirebaseController());
   User? user = FirebaseAuth.instance.currentUser;
+  String? totalAmount;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -134,8 +135,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               FutureBuilder<num>(
-                future:
-                addFirebaseController.calculatingTotalPrice(user!.uid),
+                future: addFirebaseController.calculatingTotalPrice(user!.uid),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     // While the future is still running, show a loading indicator or placeholder.
@@ -144,6 +144,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     // If there was an error, you can display an error message.
                     return Text('Error: ${snapshot.error}');
                   } else {
+                    totalAmount = '${snapshot.data!.toStringAsFixed(2)}';
                     // When the future is complete, display the result using snapshot.data.
                     return Text(
                       ' Total : ₹ ${snapshot.data!.toStringAsFixed(2)}',
@@ -158,49 +159,58 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   }
                 },
               ),
-              Row(children: [
-                ElevatedButton(
-                  style: ButtonStyle(
-                      shape: MaterialStatePropertyAll(RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(9.r))),
-                      backgroundColor:
-                      const MaterialStatePropertyAll(Color(0xFFC10000))),
-                  onPressed: () {
-                    Get.off(MainPage(),transition: Transition.leftToRightWithFade);
-                  },
-                  child: Text(
-                    'Cancel',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14.sp,
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.w600,
-                      height: 0.h,
+              Row(
+                children: [
+                  ElevatedButton(
+                    style: ButtonStyle(
+                        shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(9.r))),
+                        backgroundColor:
+                            const MaterialStatePropertyAll(Color(0xFFC10000))),
+                    onPressed: () {
+                      Get.off(MainPage(),
+                          transition: Transition.leftToRightWithFade);
+                    },
+                    child: Text(
+                      'Cancel',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14.sp,
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w600,
+                        height: 0.h,
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(width: 20,),
-                ElevatedButton(
-                  style: ButtonStyle(
-                      shape: MaterialStatePropertyAll(RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(9.r))),
-                      backgroundColor:
-                      const MaterialStatePropertyAll( Color(0xFF1F41BB))),
-                  onPressed: () {
-                    Get.off(UpiScreen(),transition: Transition.leftToRightWithFade);
-                  },
-                  child: Text(
-                    'Checkout',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14.sp,
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.w600,
-                      height: 0.h,
+                  SizedBox(
+                    width: 20,
+                  ),
+                  ElevatedButton(
+                    style: ButtonStyle(
+                        shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(9.r))),
+                        backgroundColor:
+                            const MaterialStatePropertyAll(Color(0xFF1F41BB))),
+                    onPressed: () {
+                      Get.off(
+                          UpiScreen(
+                            amount: '$totalAmount',
+                          ),
+                          transition: Transition.leftToRightWithFade);
+                    },
+                    child: Text(
+                      'Checkout',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14.sp,
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w600,
+                        height: 0.h,
+                      ),
                     ),
                   ),
-                ),
-              ],)
+                ],
+              )
             ],
           ),
         ),

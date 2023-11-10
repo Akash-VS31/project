@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:deal_ninja_spectrum/view/auth_ui/welcome_screen.dart';
-import 'package:deal_ninja_spectrum/view/widgets/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -23,18 +22,20 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Timer(Duration(seconds: 3), () {
-      loggdin(context);
+    Timer(const Duration(seconds: 3), () {
+      logInCheck(context);
     });
   }
 
-  Future<void> loggdin(BuildContext context) async {
+  Future<void> logInCheck(BuildContext context) async {
     if (user != null) {
       final GetUserDataController getUserDataController =
           Get.put(GetUserDataController());
-      Get.offAll(() => MainPage());
+      Get.offAll(() => const MainPage(),
+          transition: Transition.leftToRightWithFade);
     } else {
-      Get.to(() => WelcomeScreen());
+      Get.to(() => const WelcomeScreen(),
+          transition: Transition.leftToRightWithFade);
     }
   }
 
@@ -57,12 +58,12 @@ class _SplashScreenState extends State<SplashScreen> {
                     width: Get.width * 0.5.w,
                     alignment: Alignment.center,
                     child: Image.asset('assets/images/deal-ninja-logo.png',
-                        width: 220),
+                        width: 220.w),
                   ),
                 ),
                 Container(
                   margin: EdgeInsets.only(bottom: 30.0.h),
-                  width: Get.width,
+                  width: Get.width.w,
                   alignment: Alignment.center,
                   child: const CircularProgressIndicator(
                     color: Color(0xFF1F41BB),

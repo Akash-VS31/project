@@ -34,11 +34,11 @@ class _SignInScreenState extends State<SignInScreen> {
           prefixIcon: icons,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.r),
-            borderSide: const BorderSide(color: Colors.transparent, width: 0),
+            borderSide: const BorderSide(color: Colors.transparent),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.r),
-            borderSide: const BorderSide(color: Colors.transparent, width: 0),
+            borderSide: const BorderSide(color: Colors.transparent),
           ),
           contentPadding:
               EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
@@ -50,7 +50,7 @@ class _SignInScreenState extends State<SignInScreen> {
             fontFamily: 'Poppins',
             fontSize: 15.sp,
             fontWeight: FontWeight.w400,
-            height: 0,
+            height: 0.h,
           )),
     );
   }
@@ -85,7 +85,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     color: const Color(0xFF1F41BB),
                     fontSize: 30.sp,
                     fontWeight: FontWeight.w700,
-                    height: 0,
+                    height: 0.h,
                   ),
                 ),
               ),
@@ -102,7 +102,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     color: Colors.black,
                     fontSize: 20.sp,
                     fontWeight: FontWeight.w600,
-                    height: 0,
+                    height: 0.h,
                   ),
                 ),
               ),
@@ -154,7 +154,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             color: const Color(0xFF1F41BB),
                             fontSize: 14.sp,
                             fontWeight: FontWeight.w600,
-                            height: 0,
+                            height: 0.h,
                           ),
                         ),
                       ),
@@ -182,7 +182,8 @@ class _SignInScreenState extends State<SignInScreen> {
                               );
                               if (userCredential!.user!.emailVerified) {
                                 final user = userCredential.user;
-                                Get.off(() => HomeScreen());
+                                Get.off(() => const HomeScreen(),
+                                    transition: Transition.leftToRightWithFade);
                               }
                             } catch (e) {
                               print(e);
@@ -197,7 +198,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             color: Colors.white,
                             fontSize: 20.sp,
                             fontWeight: FontWeight.w600,
-                            height: 0,
+                            height: 0.h,
                             fontFamily: 'Poppins',
                           ),
                         ),
@@ -209,7 +210,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     GestureDetector(
                       onTap: () {
                         Get.off(const SignUpScreen(),
-                            transition: Transition.leftToRightWithFade);
+                            transition: Transition.rightToLeftWithFade);
                       },
                       child: Container(
                         alignment: Alignment.center,
@@ -221,7 +222,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             fontSize: 14.sp,
                             fontFamily: 'Poppins',
                             fontWeight: FontWeight.w600,
-                            height: 0,
+                            height: 0.h,
                           ),
                         ),
                       ),
@@ -241,7 +242,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     color: const Color(0xFF494949),
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w600,
-                    height: 0,
+                    height: 0.h,
                   ),
                 ),
               ),
@@ -260,9 +261,9 @@ class _SignInScreenState extends State<SignInScreen> {
                         googleController.signInWithGoogle().then((result) {
                           if (result != null) {
                             final user = googleController.user.value;
-                            print(user);
                             if (user != null) {
-                              Get.off(() => MainPage());
+                              Get.off(() => const MainPage(),
+                                  transition: Transition.leftToRightWithFade);
                             }
                           }
                         });
@@ -282,7 +283,8 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Get.off(MyPhone());
+                      Get.off(const MyPhone(),
+                          transition: Transition.leftToRightWithFade);
                     },
                     child: SizedBox(
                       width: 60.w,

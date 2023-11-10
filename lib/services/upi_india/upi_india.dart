@@ -3,6 +3,10 @@ import 'package:upi_india/upi_india.dart';
 import 'package:upi_india/upi_response.dart';
 
 class UpiScreen extends StatefulWidget {
+  final String amount;
+
+  UpiScreen({required this.amount});
+
   @override
   _UpiScreenState createState() => _UpiScreenState();
 }
@@ -37,11 +41,11 @@ class _UpiScreenState extends State<UpiScreen> {
   Future<UpiResponse> initiateTransaction(UpiApp app) async {
     return _upiIndia.startTransaction(
       app: app,
-      receiverUpiId: "9078600498@ybl",
-      receiverName: 'Md Azharuddin',
+      receiverUpiId: "9400377390@apl",
+      receiverName: 'Vineeth venu',
       transactionRefId: 'TestingUpiIndiaPlugin',
       transactionNote: 'Not actual. Just an example.',
-      amount: 1.00,
+      amount: double.parse(widget.amount),
     );
   }
 

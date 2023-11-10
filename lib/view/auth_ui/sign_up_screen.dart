@@ -10,7 +10,6 @@ import 'package:get/get_core/src/get_main.dart';
 
 import '../../controller/google_auth_controller.dart';
 import '../main_page.dart';
-import '../widgets/home_screen.dart';
 import 'email_validation_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -33,11 +32,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
           prefixIcon: icons,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.r),
-            borderSide: const BorderSide(color: Colors.transparent, width: 0),
+            borderSide: const BorderSide(color: Colors.transparent),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.r),
-            borderSide: const BorderSide(color: Colors.transparent, width: 0),
+            borderSide: const BorderSide(color: Colors.transparent),
           ),
           contentPadding:
               EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
@@ -49,7 +48,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             fontFamily: 'Poppins',
             fontSize: 15.sp,
             fontWeight: FontWeight.w400,
-            height: 0,
+            height: 0.h,
           )),
     );
   }
@@ -84,7 +83,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     color: const Color(0xFF1F41BB),
                     fontSize: 30.sp,
                     fontWeight: FontWeight.w700,
-                    height: 0,
+                    height: 0.h,
                     fontFamily: 'Poppins',
                   ),
                 ),
@@ -102,7 +101,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     fontSize: 14.sp,
                     fontFamily: 'Poppins',
                     fontWeight: FontWeight.w500,
-                    height: 0,
+                    height: 0.h,
                   ),
                 ),
               ),
@@ -165,18 +164,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 _nameTextController.text,
                               );
                               if (emailPassController.currentUser != null) {
-                                Get.off(() => EmailValidationScreen(
-                                    user: emailPassController.currentUser!));
+                                Get.off(
+                                    () => EmailValidationScreen(
+                                        user: emailPassController.currentUser!),
+                                    transition: Transition.leftToRightWithFade);
                               } else {
                                 // No user is currently authenticated
-                                print('No user is currently authenticated');
+                                Get.snackbar(
+                                    'No user is', 'currently authenticated');
                               }
                             } catch (e) {
                               Get.snackbar('Error', e.toString());
                             }
                           }
-                          // Get.off(() => const HomeScreen(),
-                          //     transition: Transition.leftToRightWithFade);
                         },
                         child: Text(
                           'Sign up',
@@ -186,7 +186,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             fontSize: 20.sp,
                             fontFamily: 'Poppins',
                             fontWeight: FontWeight.w600,
-                            height: 0,
+                            height: 0.h,
                           ),
                         ),
                       ),
@@ -196,19 +196,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        try {
-                          googleController.signInWithGoogle().then((result) {
-                            if (result != null) {
-                              final user = googleController.user.value;
-                              print(user);
-                              if (user != null) {
-                                Get.off(() => MainPage());
-                              }
-                            }
-                          });
-                        } catch (e) {
-                          print(e);
-                        }
+                        Get.off(() => const SignInScreen(),
+                            transition: Transition.rightToLeftWithFade);
                       },
                       child: Container(
                         alignment: Alignment.center,
@@ -220,7 +209,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             fontSize: 14.sp,
                             fontFamily: 'Poppins',
                             fontWeight: FontWeight.w600,
-                            height: 0,
+                            height: 0.h,
                           ),
                         ),
                       ),
@@ -262,7 +251,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             final user = googleController.user.value;
                             print(user);
                             if (user != null) {
-                              Get.off(() => MainPage());
+                              Get.off(() => const MainPage(),
+                                  transition: Transition.leftToRightWithFade);
                             }
                           }
                         });
@@ -282,7 +272,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Get.off(MyPhone());
+                      Get.off(const MyPhone(),
+                          transition: Transition.leftToRightWithFade);
                     },
                     child: SizedBox(
                       width: 60.w,

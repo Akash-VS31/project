@@ -1,7 +1,5 @@
-import 'dart:math';
-
 import 'package:deal_ninja_spectrum/view/auth_ui/phone_validation.dart';
-import 'package:deal_ninja_spectrum/view/widgets/home_screen.dart';
+import 'package:deal_ninja_spectrum/view/main_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,26 +18,26 @@ class _MyVerifyState extends State<MyVerify> {
   @override
   Widget build(BuildContext context) {
     final defaultPinTheme = PinTheme(
-      width: 56,
-      height: 56,
+      width: 56.w,
+      height: 56.h,
       textStyle: TextStyle(
-          fontSize: 20,
-          color: Color.fromRGBO(30, 60, 87, 1),
+          fontSize: 20.sp,
+          color: const Color.fromRGBO(30, 60, 87, 1),
           fontWeight: FontWeight.w600),
       decoration: BoxDecoration(
-        border: Border.all(color: Color.fromRGBO(234, 239, 243, 1)),
-        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: const Color.fromRGBO(234, 239, 243, 1)),
+        borderRadius: BorderRadius.circular(20.r),
       ),
     );
 
     final focusedPinTheme = defaultPinTheme.copyDecorationWith(
-      border: Border.all(color: Color.fromRGBO(114, 178, 238, 1)),
-      borderRadius: BorderRadius.circular(8),
+      border: Border.all(color: const Color.fromRGBO(114, 178, 238, 1)),
+      borderRadius: BorderRadius.circular(8.r),
     );
 
     final submittedPinTheme = defaultPinTheme.copyWith(
       decoration: defaultPinTheme.decoration?.copyWith(
-        color: Color.fromRGBO(234, 239, 243, 1),
+        color: const Color.fromRGBO(234, 239, 243, 1),
       ),
     );
     var code = "";
@@ -50,9 +48,9 @@ class _MyVerifyState extends State<MyVerify> {
         backgroundColor: Colors.transparent,
         leading: IconButton(
           onPressed: () {
-            Navigator.pop(context);
+            Get.back();
           },
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back_ios_rounded,
             color: Colors.black,
           ),
@@ -60,31 +58,41 @@ class _MyVerifyState extends State<MyVerify> {
         elevation: 0,
       ),
       body: Container(
-        margin: EdgeInsets.only(left: 25, right: 25),
+        margin: const EdgeInsets.only(left: 25, right: 25),
         alignment: Alignment.center,
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                height: 25,
+                height: 25.h,
               ),
               Text(
                 "Phone Verification",
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20.sp,
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.w600,
+                  height: 0.h,
+                ),
               ),
               SizedBox(
-                height: 10,
+                height: 10.h,
               ),
               Text(
                 "We need to register your phone without getting started!",
                 style: TextStyle(
-                  fontSize: 16,
+                  color: Colors.black,
+                  fontSize: 16.sp,
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.w400,
+                  height: 0.h,
                 ),
                 textAlign: TextAlign.center,
               ),
               SizedBox(
-                height: 30,
+                height: 30.h,
               ),
               Pinput(
                 length: 6,
@@ -98,18 +106,17 @@ class _MyVerifyState extends State<MyVerify> {
                 },
               ),
               SizedBox(
-                height: 20,
+                height: 20.h,
               ),
               SizedBox(
                 width: double.infinity,
-                height: 45,
+                height: 45.h,
                 child: ElevatedButton(
                     style: ButtonStyle(
-                        shape: MaterialStatePropertyAll(
-                            RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(9.r))),
-                        backgroundColor: const MaterialStatePropertyAll(
-                            Color(0xFF1F41BB))),
+                        shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(9.r))),
+                        backgroundColor:
+                            const MaterialStatePropertyAll(Color(0xFF1F41BB))),
                     onPressed: () async {
                       try {
                         // Create a PhoneAuthCredential with the code
@@ -119,22 +126,39 @@ class _MyVerifyState extends State<MyVerify> {
 
                         // Sign the user in (or link) with the credential
                         await auth.signInWithCredential(credential);
-                        Get.off(HomeScreen());
+                        Get.off(const MainPage(),
+                            transition: Transition.leftToRightWithFade);
                       } catch (e) {
                         print("Wrong OTP");
                       }
                     },
-                    child: Text("Verify Phone Number")),
+                    child: Text(
+                      "Verify Phone Number",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14.sp,
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w600,
+                        height: 0.h,
+                      ),
+                    )),
               ),
               Row(
                 children: [
                   TextButton(
                       onPressed: () {
-                        Get.off(() => MyPhone());
+                        Get.off(() => const MyPhone(),
+                            transition: Transition.leftToRightWithFade);
                       },
                       child: Text(
                         "Edit Phone Number ?",
-                        style: TextStyle(color: Colors.black),
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 14.sp,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w500,
+                          height: 0.h,
+                        ),
                       ))
                 ],
               )
