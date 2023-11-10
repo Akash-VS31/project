@@ -34,10 +34,12 @@ class _MainPageState extends State<MainPage> {
       body: _pages[_currentSelectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: const Color(0xFF1F41BB),
-        selectedLabelStyle: TextStyle(
-          fontFamily: 'Poppins',
-          fontSize: 12.sp,
-        ),
+        selectedLabelStyle:  TextStyle(
+        color: Colors.red,
+        fontFamily: 'Poppins',
+        fontSize: 12.sp,
+        fontWeight: FontWeight.w400,
+      ),
         unselectedItemColor: Colors.black54,
         currentIndex: _currentSelectedIndex,
         onTap: _onTabTapped,

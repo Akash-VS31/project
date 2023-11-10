@@ -51,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Scaffold(
         appBar: AppBar(
           leading: IconButton(
-              icon: Icon(Icons.menu),
+              icon: const Icon(Icons.menu_rounded),
               onPressed: () => Scaffold.of(context).openDrawer()),
           primary: false,
           bottom: PreferredSize(

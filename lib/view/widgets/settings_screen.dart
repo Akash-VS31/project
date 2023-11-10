@@ -1,7 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:deal_ninja_spectrum/view/widgets/custom-drawer-widget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
+import '../auth_ui/welcome_screen.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -19,24 +24,31 @@ class _SettingsScreenState extends State<SettingsScreen> {
     'English',
     'Hindi',
   ];
+  User? user = FirebaseAuth.instance.currentUser;
+  final currentUser = FirebaseAuth.instance;
+  late String userName = '';
+  late String imageUrl;
+  late String userEmail;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          leading:  IconButton(
-              icon: Icon(Icons.menu),
-              onPressed: () => Scaffold.of(context).openDrawer()
-          ),
+          leading: IconButton(
+              icon: const Icon(Icons.menu_rounded),
+              onPressed: () => Scaffold.of(context).openDrawer()),
           backgroundColor: const Color(0xFF1F41BB),
-          title: Text("Settings",style: TextStyle(
-            color: Colors.white,
-            fontSize: 16.sp,
-            fontWeight: FontWeight.w500,
-            height: 0,
-            fontFamily: 'Poppins',
-          ),),
+          title: Text(
+            "Settings",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 16.sp,
+              fontWeight: FontWeight.w500,
+              height: 0,
+              fontFamily: 'Poppins',
+            ),
+          ),
           centerTitle: true,
           automaticallyImplyLeading: false,
         ),
@@ -50,18 +62,61 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 children: [
                   Card(
                     color: Color(0xFFF3F4F6),
-                    child: ListTile(
-                      leading: Icon(
-                        Icons.account_circle,
-                        size: 30,
-                        color: const Color(0xFF4A4A5F),
-                      ),
-                      title: Text('Account',
-                          style: TextStyle(
-                            fontFamily: 'Poppins-Regular',
-                            fontSize: 16,
-                          )),
-                    ),
+                    child: StreamBuilder<QuerySnapshot>(
+                        stream: FirebaseFirestore.instance
+                            .collection("users")
+                            .where("uId",
+                                isEqualTo: currentUser.currentUser!.uid)
+                            .snapshots(),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Center(
+                                child: SizedBox(
+                                    width: 25.w,
+                                    height: 25.h,
+                                    child:
+                                        CircularProgressIndicator())); // Loading state
+                          }
+
+                          if (snapshot.hasError) {
+                            return Text('Error: ${snapshot.error}');
+                          }
+
+                          if (!snapshot.hasData ||
+                              snapshot.data!.docs.isEmpty) {
+                            return Text("No data found");
+                            // No data found
+                          }
+                          final userData = snapshot.data!.docs.first.data()
+                              as Map<String, dynamic>;
+                          userName = userData['username'] as String;
+                          imageUrl = userData['userImg'
+                              ''] as String;
+                          userEmail = userData['email'] as String;
+                          return ListTile(
+                            leading: Padding(
+                              padding: const EdgeInsets.only(left: 0,top: 10,bottom: 10),
+                              child: SizedBox(
+                                  height: 50,
+                                  width: 50,
+                                  child: Image.network('$imageUrl')),
+                            ),
+                            title: Text('$userName',
+                                style: TextStyle(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w500,
+                                  height: 0,
+                                  fontFamily: 'Poppins',
+                                )),
+                            subtitle: Text("$userEmail", style: TextStyle(
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w400,
+                              height: 0,
+                              fontFamily: 'Poppins',
+                            )),
+                          );
+                        }),
                   ),
                   Card(
                     color: Color(0xFFF3F4F6),
@@ -73,8 +128,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                       title: Text('Privacy and policy',
                           style: TextStyle(
-                            fontFamily: 'Poppins-Regular',
-                            fontSize: 16,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w400,
+                            height: 0,
+                            fontFamily: 'Poppins',
                           )),
                     ),
                   ),
@@ -85,8 +142,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           size: 30, color: const Color(0xFF4A4A5F)),
                       title: Text('Notification',
                           style: TextStyle(
-                            fontFamily: 'Poppins-Regular',
-                            fontSize: 16,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w400,
+                            height: 0,
+                            fontFamily: 'Poppins',
                           )),
                       trailing: Transform.scale(
                         scale:
@@ -115,8 +174,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           size: 30, color: const Color(0xFF4A4A5F)),
                       title: Text('Dark/Light Mode',
                           style: TextStyle(
-                            fontFamily: 'Poppins-Regular',
-                            fontSize: 16,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w400,
+                            height: 0,
+                            fontFamily: 'Poppins',
                           )),
                       trailing: Transform.scale(
                         scale:
@@ -145,8 +206,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             size: 30, color: const Color(0xFF4A4A5F)),
                         title: Text('Language',
                             style: TextStyle(
-                              fontFamily: 'Poppins-Regular',
-                              fontSize: 16,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w400,
+                              height: 0,
+                              fontFamily: 'Poppins',
                             )),
                         trailing: DropdownButton(
                           value: dropdownvalue,
@@ -164,40 +227,52 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           },
                         )),
                   ),
-                  const Card(
+                  Card(
                     color: Color(0xFFF3F4F6),
                     child: ListTile(
                       leading: Icon(Icons.password,
                           size: 30, color: Color(0xFF4A4A5F)),
                       title: Text('Change Password',
                           style: TextStyle(
-                            fontFamily: 'Poppins-Regular',
-                            fontSize: 16,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w400,
+                            height: 0,
+                            fontFamily: 'Poppins',
                           )),
                     ),
                   ),
-                  const Card(
+                  Card(
                     color: Color(0xFFF3F4F6),
                     child: ListTile(
                       leading: Icon(Icons.delete,
                           size: 30, color: Color(0xFF4A4A5F)),
                       title: Text('Delete Account',
                           style: TextStyle(
-                            fontFamily: 'Poppins-Regular',
-                            fontSize: 16,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w400,
+                            height: 0,
+                            fontFamily: 'Poppins',
                           )),
                     ),
                   ),
-                  const Card(
-                    color: Color(0xFFF3F4F6),
-                    child: ListTile(
-                      leading: Icon(Icons.logout,
-                          size: 30, color: Color(0xFF4A4A5F)),
-                      title: Text(
-                        'Log Out',
-                        style: TextStyle(
-                          fontFamily: 'Poppins-Regular',
-                          fontSize: 16,
+                  GestureDetector(
+                    onTap: () async {
+                      await FirebaseAuth.instance.signOut();
+                      Get.off(() => const WelcomeScreen());
+                    },
+                    child: Card(
+                      color: Color(0xFFF3F4F6),
+                      child: ListTile(
+                        leading: Icon(Icons.logout,
+                            size: 30, color: Color(0xFF4A4A5F)),
+                        title: Text(
+                          'Log Out',
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w400,
+                              height: 0,
+                              fontFamily: 'Poppins',
+                            )
                         ),
                       ),
                     ),

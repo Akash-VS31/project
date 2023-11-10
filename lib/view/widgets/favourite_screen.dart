@@ -26,7 +26,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
       child: Scaffold(
         appBar: AppBar(
           leading:  IconButton(
-              icon: Icon(Icons.menu),
+              icon: const Icon(Icons.menu_rounded),
               onPressed: () => Scaffold.of(context).openDrawer()
           ),
           backgroundColor: const Color(0xFF1F41BB),
