@@ -14,11 +14,11 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  static List<Widget> _pages = <Widget>[
-    HomeScreen(),
-    FavouriteScreen(),
-    CartItemScreen(),
-    SettingsScreen()
+  static final List<Widget> _pages = <Widget>[
+    const HomeScreen(),
+    const FavouriteScreen(),
+    const CartItemScreen(),
+    const SettingsScreen()
   ];
   int _currentSelectedIndex = 0;
   void _onTabTapped(int index) {

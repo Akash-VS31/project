@@ -30,7 +30,13 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
               onPressed: () => Scaffold.of(context).openDrawer()
           ),
           backgroundColor: const Color(0xFF1F41BB),
-          title: Text("Favourite"),
+          title: Text("Favourite",style: TextStyle(
+            color: Colors.white,
+            fontSize: 16.sp,
+            fontWeight: FontWeight.w500,
+            height: 0,
+            fontFamily: 'Poppins',
+          ),),
           centerTitle: true,
           automaticallyImplyLeading: false,
         ),

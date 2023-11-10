@@ -33,7 +33,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           title: Text("Settings",style: TextStyle(
             color: Colors.white,
             fontSize: 16.sp,
-            fontWeight: FontWeight.w600,
+            fontWeight: FontWeight.w500,
             height: 0,
             fontFamily: 'Poppins',
           ),),

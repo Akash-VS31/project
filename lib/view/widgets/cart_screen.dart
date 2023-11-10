@@ -36,7 +36,7 @@ class _CartItemScreenState extends State<CartItemScreen> {
             style: TextStyle(
               color: Colors.white,
               fontSize: 16.sp,
-              fontWeight: FontWeight.w600,
+              fontWeight: FontWeight.w500,
               height: 0,
               fontFamily: 'Poppins',
             ),
