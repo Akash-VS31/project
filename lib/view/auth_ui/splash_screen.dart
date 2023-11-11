@@ -44,7 +44,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return SafeArea(
       child: Scaffold(
           extendBodyBehindAppBar: true,
-          backgroundColor: Colors.black,
+          backgroundColor: Colors.white,
           appBar: AppBar(
             backgroundColor: Colors.transparent,
             elevation: 0,
@@ -55,10 +55,12 @@ class _SplashScreenState extends State<SplashScreen> {
               children: [
                 Expanded(
                   child: Container(
-                    width: Get.width * 0.5.w,
+                    width: Get.width.w,
                     alignment: Alignment.center,
-                    child: Image.asset('assets/images/deal-ninja-logo.png',
-                        width: 220.w),
+                    child: Center(
+                      child: Image.asset('assets/images/deal-ninja-logo.png',
+                          width: 220.w),
+                    ),
                   ),
                 ),
                 Container(

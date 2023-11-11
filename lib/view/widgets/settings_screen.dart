@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:deal_ninja_spectrum/view/widgets/custom-drawer-widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -70,11 +71,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
                           return Center(
-                              child: SizedBox(
-                                  width: 25.w,
-                                  height: 25.h,
-                                  child:
-                                      const CircularProgressIndicator())); // Loading state
+                              child: const CupertinoActivityIndicator()); // Loading state
                         }
 
                         if (snapshot.hasError) {

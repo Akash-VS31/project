@@ -32,7 +32,7 @@ class _MainPageState extends State<MainPage> {
     return SafeArea(
       child: Scaffold(
         drawer: const DrawerWidget(),
-        body: _pages[_currentSelectedIndex],
+        body:  Center(child: _pages[_currentSelectedIndex]),
         bottomNavigationBar: BottomNavigationBar(
           selectedItemColor: const Color(0xFF1F41BB),
           selectedLabelStyle:  TextStyle(

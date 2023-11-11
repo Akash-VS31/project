@@ -158,7 +158,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   children: [
                     Material(
                       child: Container(
-                        width: Get.width / 3.0.w,
+                        width: Get.width / 2.9.w,
                         height: Get.height / 16.h,
                         decoration: BoxDecoration(
                             color: const Color(0xFF1F41BB),
@@ -190,7 +190,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontFamily: 'Poppins',
-                                        fontSize: 14.sp,
+                                        fontSize: 12.sp,
                                         fontWeight: FontWeight.w500)),
                               ],
                             )),
@@ -216,7 +216,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontFamily: 'Poppins',
-                                    fontSize: 14.sp,
+                                    fontSize: 12.sp,
                                     fontWeight: FontWeight.w500))),
                       ),
                     ),

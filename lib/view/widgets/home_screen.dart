@@ -102,74 +102,69 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: const Color(0xFF1F41BB),
         elevation: 0,
       ),
-      body: SafeArea(
-          child: Stack(children: [
-        Container(
-          decoration: const BoxDecoration(color: Colors.white),
-        ),
-        SingleChildScrollView(
-          physics: const ClampingScrollPhysics(),
-          child: Padding(
-            padding: const EdgeInsets.all(13.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Trending deals',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: const Color(0xFF494949),
-                    fontSize: 14.sp,
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w600,
-                    height: 0.h,
-                  ),
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Padding(
+          padding: const EdgeInsets.all(13.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Trending deals',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: const Color(0xFF494949),
+                  fontSize: 14.sp,
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.w600,
+                  height: 0.h,
                 ),
-                SizedBox(
-                  height: 8.h,
+              ),
+              SizedBox(
+                height: 8.h,
+              ),
+              const BannerWidget(),
+              SizedBox(
+                height: 8.h,
+              ),
+              Text(
+                'All category',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: const Color(0xFF494949),
+                  fontSize: 14.sp,
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.w600,
+                  height: 0.h,
                 ),
-                const BannerWidget(),
-                SizedBox(
-                  height: 8.h,
+              ),
+              SizedBox(
+                height: 12.h,
+              ),
+              SizedBox(
+                  width: 349.w,
+                  height: 115.h,
+                  child: const CategoriesWidget()),
+              Text(
+                'All deals',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: const Color(0xFF494949),
+                  fontSize: 14.sp,
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.w600,
+                  height: 0.h,
                 ),
-                Text(
-                  'All category',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: const Color(0xFF494949),
-                    fontSize: 14.sp,
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w600,
-                    height: 0.h,
-                  ),
-                ),
-                SizedBox(
-                  height: 12.h,
-                ),
-                SizedBox(
-                    width: 349.w,
-                    height: 115.h,
-                    child: const CategoriesWidget()),
-                Text(
-                  'All deals',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: const Color(0xFF494949),
-                    fontSize: 14.sp,
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w600,
-                    height: 0.h,
-                  ),
-                ),
-                SizedBox(
-                  height: 15.h,
-                ),
-                const AllProductsWidget()
-              ],
-            ),
+              ),
+              SizedBox(
+                height: 15.h,
+              ),
+              const AllProductsWidget(),
+
+            ],
           ),
         ),
-      ])),
+      ),
     );
   }
 }

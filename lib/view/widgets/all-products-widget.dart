@@ -55,9 +55,9 @@ class _AllProductsWidgetState extends State<AllProductsWidget> {
             physics: const BouncingScrollPhysics(),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              childAspectRatio: .78,
-              mainAxisSpacing: 4.0,
-              crossAxisSpacing: 10,
+              mainAxisSpacing: 5,
+              crossAxisSpacing: 5,
+              childAspectRatio: 0.80,
             ),
             itemBuilder: (context, index) {
               final productData = snapshot.data!.docs[index];
@@ -108,15 +108,13 @@ class _AllProductsWidgetState extends State<AllProductsWidget> {
                         ),
                       ),
                     ),
-                    Flexible(
-                      child: Text(
-                        productModel.productName,
-                        style: TextStyle(
-                            color: const Color(0xFF505050),
-                            fontFamily: 'Poppins',
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w600),
-                      ),
+                    Text(
+                      productModel.productName,
+                      style: TextStyle(
+                          color: const Color(0xFF505050),
+                          fontFamily: 'Poppins',
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w600),
                     ),
                     SizedBox(
                       height: 10.h,
@@ -126,15 +124,13 @@ class _AllProductsWidgetState extends State<AllProductsWidget> {
                       children: [
                         Padding(
                           padding: EdgeInsets.only(left: 13.0.w),
-                          child: Flexible(
-                            child: Text(
-                              ' ₹ ${productModel.fullPrice}',
-                              style: TextStyle(
-                                  color: const Color(0xFFCF1919),
-                                  fontFamily: 'Poppins',
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w400),
-                            ),
+                          child: Text(
+                            ' ₹ ${productModel.fullPrice}',
+                            style: TextStyle(
+                                color: const Color(0xFFCF1919),
+                                fontFamily: 'Poppins',
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w400),
                           ),
                         ),
                         SizedBox(
