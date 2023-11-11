@@ -27,11 +27,11 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-            onPressed: () =>
-                Get.off(MainPage(), transition: Transition.leftToRightWithFade),
-            icon: Icon(CupertinoIcons.back)),
+            onPressed: () => Get.off(() => const MainPage(),
+                transition: Transition.leftToRightWithFade),
+            icon: const Icon(CupertinoIcons.back)),
         backgroundColor: const Color(0xFF1F41BB),
-        title: Text("Checkout"),
+        title: const Text("Checkout"),
         centerTitle: true,
         automaticallyImplyLeading: false,
       ),
@@ -43,94 +43,100 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CupertinoActivityIndicator());
+            return const Center(child: CupertinoActivityIndicator());
           }
           if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           }
           if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-            return Center(child: Text('Your cart is empty.'));
+            return const Center(child: Text('Your cart is empty.'));
           }
           final cartItems = snapshot.data!.docs;
 
-          return ListView.builder(
-            itemCount: cartItems.length,
-            itemBuilder: (context, index) {
-              final cartItem = cartItems[index];
-              final cartProduct =
-                  CartModel.fromMap(cartItem.data() as Map<String, dynamic>);
-              return Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20.0,
-                  vertical: 10,
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      CircleAvatar(
-                        radius: 40,
-                        child: CachedNetworkImage(
-                          imageUrl: cartProduct.productImages[0],
-                          fit: BoxFit.contain,
-                          width: 45.w,
-                          placeholder: (context, url) => ColoredBox(
-                            color: Colors.white,
-                            child: Center(child: CupertinoActivityIndicator()),
+          return Padding(
+            padding: EdgeInsets.all(8.0.w),
+            child: Card(
+              child: ListView.builder(
+                itemCount: cartItems.length,
+                itemBuilder: (context, index) {
+                  final cartItem = cartItems[index];
+                  final cartProduct = CartModel.fromMap(
+                      cartItem.data() as Map<String, dynamic>);
+                  return Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 20.0.w,
+                      vertical: 10.h,
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.all(8.0.w),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          CircleAvatar(
+                            radius: 40.r,
+                            child: CachedNetworkImage(
+                              imageUrl: cartProduct.productImages[0],
+                              fit: BoxFit.contain,
+                              width: 45.w,
+                              placeholder: (context, url) => const ColoredBox(
+                                color: Colors.white,
+                                child:
+                                    Center(child: CupertinoActivityIndicator()),
+                              ),
+                              errorWidget: (context, url, error) =>
+                                  const Icon(Icons.error),
+                            ),
                           ),
-                          errorWidget: (context, url, error) =>
-                              Icon(Icons.error),
-                        ),
+                          Flexible(
+                              child: Text(
+                            cartProduct.productName,
+                            style: TextStyle(
+                              color: const Color(0xFF494949),
+                              fontSize: 14.sp,
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w600,
+                              height: 0.h,
+                            ),
+                          )),
+                          Text(
+                            '${cartProduct.productQuantity}',
+                            style: TextStyle(
+                              color: const Color(0xFF494949),
+                              fontSize: 14.sp,
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w600,
+                              height: 0.h,
+                            ),
+                          ),
+                          Flexible(
+                              child: Text(
+                            ' ₹${cartProduct.productTotalPrice}',
+                            style: TextStyle(
+                              color: const Color(0xFF47002B),
+                              fontSize: 14.sp,
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w600,
+                              height: 0.h,
+                            ),
+                          )),
+                        ],
                       ),
-                      Flexible(
-                          child: Text(
-                        cartProduct.productName,
-                        style: TextStyle(
-                          color: const Color(0xFF494949),
-                          fontSize: 14.sp,
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w600,
-                          height: 0.h,
-                        ),
-                      )),
-                      Text(
-                        '${cartProduct.productQuantity}',
-                        style: TextStyle(
-                          color: const Color(0xFF494949),
-                          fontSize: 14.sp,
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w600,
-                          height: 0.h,
-                        ),
-                      ),
-                      Flexible(
-                          child: Text(
-                        ' ₹${cartProduct.productTotalPrice}',
-                        style: TextStyle(
-                          color: const Color(0xFF47002B),
-                          fontSize: 14.sp,
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w600,
-                          height: 0.h,
-                        ),
-                      )),
-                    ],
-                  ),
-                ),
-              );
-            },
+                    ),
+                  );
+                },
+              ),
+            ),
           );
         },
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: EdgeInsets.all(8.0.w),
         child: Container(
           decoration: BoxDecoration(
             color: const Color(0xFF47002B),
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(15.r),
           ),
-          padding: EdgeInsets.all(15.0),
+          padding: EdgeInsets.all(15.0.w),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -139,7 +145,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     // While the future is still running, show a loading indicator or placeholder.
-                    return CupertinoActivityIndicator();
+                    return const CupertinoActivityIndicator();
                   } else if (snapshot.hasError) {
                     // If there was an error, you can display an error message.
                     return Text('Error: ${snapshot.error}');
@@ -153,7 +159,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         fontSize: 14.sp,
                         fontFamily: 'Poppins',
                         fontWeight: FontWeight.w600,
-                        height: 0,
+                        height: 0.h,
                       ),
                     );
                   }
@@ -168,7 +174,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         backgroundColor:
                             const MaterialStatePropertyAll(Color(0xFFC10000))),
                     onPressed: () {
-                      Get.off(MainPage(),
+                      Get.off(() => const MainPage(),
                           transition: Transition.leftToRightWithFade);
                     },
                     child: Text(
@@ -183,7 +189,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     ),
                   ),
                   SizedBox(
-                    width: 20,
+                    width: 20.w,
                   ),
                   ElevatedButton(
                     style: ButtonStyle(

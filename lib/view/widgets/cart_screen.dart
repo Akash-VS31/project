@@ -36,7 +36,7 @@ class _CartItemScreenState extends State<CartItemScreen> {
             color: Colors.white,
             fontSize: 16.sp,
             fontWeight: FontWeight.w500,
-            height: 0,
+            height: 0.h,
             fontFamily: 'Poppins',
           ),
         ),
@@ -68,34 +68,39 @@ class _CartItemScreenState extends State<CartItemScreen> {
               final cartProduct =
                   CartModel.fromMap(cartItem.data() as Map<String, dynamic>);
               return Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20.0,
-                  vertical: 10,
+                padding: EdgeInsets.symmetric(
+                  horizontal: 20.0.w,
+                  vertical: 10.h,
                 ),
                 child: Card(
-                  color: Color(0xFFE0FBE2),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0.r),
+
+                  ),
+                  elevation: 4.0,
+                  color: Colors.white,
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding:  EdgeInsets.all(8.0.w),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         CircleAvatar(
-                          radius: 40,
+                          radius: 40.r,
                           child: CachedNetworkImage(
                             imageUrl: cartProduct.productImages[0],
                             fit: BoxFit.contain,
                             width: 45.w,
-                            placeholder: (context, url) => ColoredBox(
+                            placeholder: (context, url) => const ColoredBox(
                               color: Colors.white,
                               child:
                                   Center(child: CupertinoActivityIndicator()),
                             ),
                             errorWidget: (context, url, error) =>
-                                Icon(Icons.error),
+                                const Icon(Icons.error),
                           ),
                         ),
                         SizedBox(
-                          width: 20,
+                          width: 20.w,
                         ),
                         Flexible(
                             child: Text(
@@ -115,7 +120,7 @@ class _CartItemScreenState extends State<CartItemScreen> {
                                     uId: user!.uid,
                                     productId: cartProduct.productId);
                           },
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.remove_circle,
                             color: Color(0xFFCF1919),
                           ),
@@ -137,7 +142,7 @@ class _CartItemScreenState extends State<CartItemScreen> {
                                     uId: user!.uid,
                                     productId: cartProduct.productId);
                           },
-                          icon: Icon(Icons.add_circle,
+                          icon: const Icon(Icons.add_circle,
                               color: Color(0xFF007C39)),
                         ),
                         Flexible(
@@ -161,13 +166,13 @@ class _CartItemScreenState extends State<CartItemScreen> {
         },
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: EdgeInsets.all(8.0.w),
         child: Container(
           decoration: BoxDecoration(
             color: const Color(0xFF712B2B),
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(15.r),
           ),
-          padding: EdgeInsets.all(15.0),
+          padding: EdgeInsets.all(15.0.w),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -177,7 +182,7 @@ class _CartItemScreenState extends State<CartItemScreen> {
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     // While the future is still running, show a loading indicator or placeholder.
-                    return CupertinoActivityIndicator();
+                    return const CupertinoActivityIndicator();
                   } else if (snapshot.hasError) {
                     // If there was an error, you can display an error message.
                     return Text('Error: ${snapshot.error}');
@@ -190,7 +195,7 @@ class _CartItemScreenState extends State<CartItemScreen> {
                         fontSize: 14.sp,
                         fontFamily: 'Poppins',
                         fontWeight: FontWeight.w600,
-                        height: 0,
+                        height: 0.h,
                       ),
                     );
                   }
@@ -203,7 +208,7 @@ class _CartItemScreenState extends State<CartItemScreen> {
                     backgroundColor:
                         const MaterialStatePropertyAll(Color(0xFF1F41BB))),
                 onPressed: () {
-                  Get.off(CheckOutScreen(),transition: Transition.leftToRightWithFade);
+                  Get.off(const CheckOutScreen(),transition: Transition.leftToRightWithFade);
                 },
                 child: Text(
                   'Checkout',

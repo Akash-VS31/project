@@ -1,8 +1,7 @@
-// ignore_for_file: file_names, prefer_const_constructors, prefer_const_literals_to_create_immutables, sort_child_properties_last, no_leading_underscores_for_local_identifiers
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:deal_ninja_spectrum/view/widgets/checkout_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -44,7 +43,8 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                   child: SizedBox(
                       width: 25.w,
                       height: 25.h,
-                      child: CircularProgressIndicator())); // Loading state
+                      child:
+                          const CupertinoActivityIndicator())); // Loading state
             }
 
             if (snapshot.hasError) {
@@ -59,10 +59,11 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                     child: ListTile(
                       onTap: () async {
                         await FirebaseAuth.instance.signOut();
-                        Get.off(() => WelcomeScreen());
+                        Get.off(() => const WelcomeScreen(),
+                            transition: Transition.leftToRightWithFade);
                       },
                       titleAlignment: ListTileTitleAlignment.center,
-                      title: Text(
+                      title: const Text(
                         "Logout",
                         style: TextStyle(
                           color: Color(0xFFFBF5F4),
@@ -79,7 +80,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                       ),
                     ),
                   ),
-                  Text("No data found")
+                  const Text("No data found")
                 ],
               ); // No data found
             }
@@ -100,7 +101,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                     title: Text(
                       userName,
                       style: TextStyle(
-                          color: Color(0xFFFBF5F4),
+                          color: const Color(0xFFFBF5F4),
                           fontFamily: 'Poppins',
                           fontWeight: FontWeight.bold,
                           fontSize: 16.sp),
@@ -108,21 +109,21 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                     subtitle: Text(
                       userEmail,
                       style: TextStyle(
-                        color: Color(0xFFFBF5F4),
+                        color: const Color(0xFFFBF5F4),
                         fontSize: 10.sp,
                         fontFamily: 'Poppins',
                       ),
                     ),
                     leading: CircleAvatar(
                       radius: 22.0.r,
-                      backgroundColor: Color(0xFFbf1b08),
+                      backgroundColor: const Color(0xFFbf1b08),
                       backgroundImage: imageUrl.isNotEmpty
                           ? Image.network(imageUrl).image
                           : Image.asset('asset/images/google_icon.png').image,
                     ),
                   ),
                 ),
-                Divider(
+                const Divider(
                   indent: 10.0,
                   endIndent: 10.0,
                   thickness: 1.5,
@@ -130,7 +131,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20.0.w),
-                  child: ListTile(
+                  child: const ListTile(
                     titleAlignment: ListTileTitleAlignment.center,
                     title: Text(
                       "Home",
@@ -158,9 +159,10 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                       var uri = Uri.parse(whatsappUrl);
                       await launchUrl(uri)
                           ? launchUrl(uri)
-                          : print("Open WhatsApp app link or show a snackbar with a notification that WhatsApp is not installed.");
+                          : print(
+                              "Open WhatsApp app link or show a snackbar with a notification that WhatsApp is not installed.");
                     },
-                    child: ListTile(
+                    child: const ListTile(
                       titleAlignment: ListTileTitleAlignment.center,
                       title: Text(
                         "WhatsApp",
@@ -185,8 +187,9 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                   child: ListTile(
                     titleAlignment: ListTileTitleAlignment.center,
                     title: GestureDetector(
-                      onTap: () => Get.off(CheckOutScreen()),
-                      child: Text(
+                      onTap: () => Get.off(const CheckOutScreen(),
+                          transition: Transition.leftToRightWithFade),
+                      child: const Text(
                         "Orders",
                         style: TextStyle(
                           color: Color(0xFFFBF5F4),
@@ -194,11 +197,11 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                         ),
                       ),
                     ),
-                    leading: Icon(
+                    leading: const Icon(
                       Icons.shopping_bag,
                       color: Color(0xFFFBF5F4),
                     ),
-                    trailing: Icon(
+                    trailing: const Icon(
                       Icons.arrow_forward,
                       color: Color(0xFFFBF5F4),
                     ),
@@ -206,7 +209,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20.0.h),
-                  child: ListTile(
+                  child: const ListTile(
                     titleAlignment: ListTileTitleAlignment.center,
                     title: Text(
                       "Contact",
@@ -230,10 +233,11 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                   child: ListTile(
                     onTap: () async {
                       await FirebaseAuth.instance.signOut();
-                      Get.off(() => WelcomeScreen());
+                      Get.off(() => const WelcomeScreen(),
+                          transition: Transition.leftToRightWithFade);
                     },
                     titleAlignment: ListTileTitleAlignment.center,
-                    title: Text(
+                    title: const Text(
                       "Logout",
                       style: TextStyle(
                         color: Color(0xFFFBF5F4),

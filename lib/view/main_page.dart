@@ -31,7 +31,7 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        drawer: DrawerWidget(),
+        drawer: const DrawerWidget(),
         body: _pages[_currentSelectedIndex],
         bottomNavigationBar: BottomNavigationBar(
           selectedItemColor: const Color(0xFF1F41BB),

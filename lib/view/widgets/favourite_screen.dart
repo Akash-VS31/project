@@ -33,7 +33,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
           color: Colors.white,
           fontSize: 16.sp,
           fontWeight: FontWeight.w500,
-          height: 0,
+          height: 0.h,
           fontFamily: 'Poppins',
         ),),
         centerTitle: true,
@@ -47,13 +47,13 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CupertinoActivityIndicator());
+            return const Center(child: CupertinoActivityIndicator());
           }
           if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           }
           if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-            return Center(child: Text('Favourite screen is empty.'));
+            return const Center(child: Text('Favourite screen is empty.'));
           }
           final favoriteItem = snapshot.data!.docs;
 
@@ -64,30 +64,35 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
               final cartProduct =
               FavoriteModel.fromMap(cartItem.data() as Map<String, dynamic>);
               return Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20.0,
-                  vertical: 10,
+                padding: EdgeInsets.symmetric(
+                  horizontal: 20.0.w,
+                  vertical: 10.h,
                 ),
                 child: Card(
-                  color: Color(0xFFE0FBE2),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0.r),
+
+                  ),
+                  elevation: 4.0,
+                  color: Colors.white,
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(8.0.w),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         CircleAvatar(
-                          radius: 40,
+                          radius: 40.r,
                           child: CachedNetworkImage(
                             imageUrl: cartProduct.productImages[0],
                             fit: BoxFit.contain,
                             width: 45.w,
-                            placeholder: (context, url) => ColoredBox(
+                            placeholder: (context, url) => const ColoredBox(
                               color: Colors.white,
                               child:
                               Center(child: CupertinoActivityIndicator()),
                             ),
                             errorWidget: (context, url, error) =>
-                                Icon(Icons.error),
+                                const Icon(Icons.error),
                           ),
                         ),
                         Flexible(
@@ -108,7 +113,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                                 uId: user!.uid,
                                 productId: cartProduct.productId);
                           },
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.delete,
                             color: Color(0xFFCF1919),
                           ),

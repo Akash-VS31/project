@@ -3,6 +3,7 @@ import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../controller/banners-controller.dart';
@@ -25,18 +26,18 @@ class _BannerWidgetState extends State<BannerWidget> {
           items: _bannerController.bannerUrls
               .map(
                 (imageUrls) => ClipRRect(
-                  borderRadius: BorderRadius.circular(10.0),
+                  borderRadius: BorderRadius.circular(10.0.r),
                   child: CachedNetworkImage(
                     imageUrl: imageUrls,
                     fit: BoxFit.cover,
                     width: Get.width - 10,
-                    placeholder: (context, url) => ColoredBox(
+                    placeholder: (context, url) => const ColoredBox(
                       color: Colors.white,
                       child: Center(
                         child: CupertinoActivityIndicator(),
                       ),
                     ),
-                    errorWidget: (context, url, error) => Icon(Icons.error),
+                    errorWidget: (context, url, error) => const Icon(Icons.error),
                   ),
                 ),
               )

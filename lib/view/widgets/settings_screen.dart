@@ -44,28 +44,27 @@ class _SettingsScreenState extends State<SettingsScreen> {
             color: Colors.white,
             fontSize: 16.sp,
             fontWeight: FontWeight.w500,
-            height: 0,
+            height: 0.h,
             fontFamily: 'Poppins',
           ),
         ),
         centerTitle: true,
         automaticallyImplyLeading: false,
       ),
-      drawer: DrawerWidget(),
+      drawer: const DrawerWidget(),
       body: Container(
-        decoration: BoxDecoration(color: Colors.white),
+        decoration: const BoxDecoration(color: Colors.white),
         child: Column(children: [
           Padding(
-            padding: const EdgeInsets.all(13.0),
+            padding: EdgeInsets.all(13.0.w),
             child: Column(
               children: [
                 Card(
-                  color: Color(0xFFF3F4F6),
+                  color: const Color(0xFFF3F4F6),
                   child: StreamBuilder<QuerySnapshot>(
                       stream: FirebaseFirestore.instance
                           .collection("users")
-                          .where("uId",
-                              isEqualTo: currentUser.currentUser!.uid)
+                          .where("uId", isEqualTo: currentUser.currentUser!.uid)
                           .snapshots(),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
@@ -75,16 +74,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   width: 25.w,
                                   height: 25.h,
                                   child:
-                                      CircularProgressIndicator())); // Loading state
+                                      const CircularProgressIndicator())); // Loading state
                         }
 
                         if (snapshot.hasError) {
                           return Text('Error: ${snapshot.error}');
                         }
 
-                        if (!snapshot.hasData ||
-                            snapshot.data!.docs.isEmpty) {
-                          return Text("No data found");
+                        if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                          return const Text("No data found");
                           // No data found
                         }
                         final userData = snapshot.data!.docs.first.data()
@@ -95,55 +93,57 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         userEmail = userData['email'] as String;
                         return ListTile(
                           leading: Padding(
-                            padding: const EdgeInsets.only(left: 0,top: 10,bottom: 10),
+                            padding: EdgeInsets.only(
+                                left: 0.w, top: 10.w, bottom: 10.w),
                             child: SizedBox(
-                                height: 50,
-                                width: 50,
-                                child: Image.network('$imageUrl')),
+                                height: 50.h,
+                                width: 50.w,
+                                child: Image.network(imageUrl)),
                           ),
-                          title: Text('$userName',
+                          title: Text(userName,
                               style: TextStyle(
                                 fontSize: 16.sp,
                                 fontWeight: FontWeight.w500,
-                                height: 0,
+                                height: 0.h,
                                 fontFamily: 'Poppins',
                               )),
-                          subtitle: Text("$userEmail", style: TextStyle(
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w400,
-                            height: 0,
-                            fontFamily: 'Poppins',
-                          )),
+                          subtitle: Text(userEmail,
+                              style: TextStyle(
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w400,
+                                height: 0.h,
+                                fontFamily: 'Poppins',
+                              )),
                         );
                       }),
                 ),
                 Card(
-                  color: Color(0xFFF3F4F6),
+                  color: const Color(0xFFF3F4F6),
                   child: ListTile(
-                    leading: Icon(
+                    leading: const Icon(
                       Icons.privacy_tip_outlined,
                       size: 30,
-                      color: const Color(0xFF4A4A5F),
+                      color: Color(0xFF4A4A5F),
                     ),
                     title: Text('Privacy and policy',
                         style: TextStyle(
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w400,
-                          height: 0,
+                          height: 0.h,
                           fontFamily: 'Poppins',
                         )),
                   ),
                 ),
                 Card(
-                  color: Color(0xFFF3F4F6),
+                  color: const Color(0xFFF3F4F6),
                   child: ListTile(
-                    leading: Icon(Icons.notifications,
-                        size: 30, color: const Color(0xFF4A4A5F)),
+                    leading: const Icon(Icons.notifications,
+                        size: 30, color: Color(0xFF4A4A5F)),
                     title: Text('Notification',
                         style: TextStyle(
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w400,
-                          height: 0,
+                          height: 0.h,
                           fontFamily: 'Poppins',
                         )),
                     trailing: Transform.scale(
@@ -167,15 +167,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ),
                 ),
                 Card(
-                  color: Color(0xFFF3F4F6),
+                  color: const Color(0xFFF3F4F6),
                   child: ListTile(
-                    leading: Icon(Icons.dark_mode,
-                        size: 30, color: const Color(0xFF4A4A5F)),
+                    leading: const Icon(Icons.dark_mode,
+                        size: 30, color: Color(0xFF4A4A5F)),
                     title: Text('Dark/Light Mode',
                         style: TextStyle(
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w400,
-                          height: 0,
+                          height: 0.h,
                           fontFamily: 'Poppins',
                         )),
                     trailing: Transform.scale(
@@ -199,15 +199,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ),
                 ),
                 Card(
-                  color: Color(0xFFF3F4F6),
+                  color: const Color(0xFFF3F4F6),
                   child: ListTile(
-                      leading: Icon(Icons.language,
-                          size: 30, color: const Color(0xFF4A4A5F)),
+                      leading: const Icon(Icons.language,
+                          size: 30, color: Color(0xFF4A4A5F)),
                       title: Text('Language',
                           style: TextStyle(
                             fontSize: 14.sp,
                             fontWeight: FontWeight.w400,
-                            height: 0,
+                            height: 0.h,
                             fontFamily: 'Poppins',
                           )),
                       trailing: DropdownButton(
@@ -227,29 +227,29 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       )),
                 ),
                 Card(
-                  color: Color(0xFFF3F4F6),
+                  color: const Color(0xFFF3F4F6),
                   child: ListTile(
-                    leading: Icon(Icons.password,
+                    leading: const Icon(Icons.password,
                         size: 30, color: Color(0xFF4A4A5F)),
                     title: Text('Change Password',
                         style: TextStyle(
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w400,
-                          height: 0,
+                          height: 0.h,
                           fontFamily: 'Poppins',
                         )),
                   ),
                 ),
                 Card(
-                  color: Color(0xFFF3F4F6),
+                  color: const Color(0xFFF3F4F6),
                   child: ListTile(
-                    leading: Icon(Icons.delete,
+                    leading: const Icon(Icons.delete,
                         size: 30, color: Color(0xFF4A4A5F)),
                     title: Text('Delete Account',
                         style: TextStyle(
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w400,
-                          height: 0,
+                          height: 0.h,
                           fontFamily: 'Poppins',
                         )),
                   ),
@@ -260,19 +260,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     Get.off(() => const WelcomeScreen());
                   },
                   child: Card(
-                    color: Color(0xFFF3F4F6),
+                    color: const Color(0xFFF3F4F6),
                     child: ListTile(
-                      leading: Icon(Icons.logout,
+                      leading: const Icon(Icons.logout,
                           size: 30, color: Color(0xFF4A4A5F)),
-                      title: Text(
-                        'Log Out',
+                      title: Text('Log Out',
                           style: TextStyle(
                             fontSize: 14.sp,
                             fontWeight: FontWeight.w400,
-                            height: 0,
+                            height: 0.h,
                             fontFamily: 'Poppins',
-                          )
-                      ),
+                          )),
                     ),
                   ),
                 ),

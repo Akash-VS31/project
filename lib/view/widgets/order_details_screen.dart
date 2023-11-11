@@ -12,7 +12,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF1F41BB),
-        title: Text("Orders"),
+        title: const Text("Orders"),
         centerTitle: true,
       ),
     );
