@@ -108,50 +108,54 @@ class _AllProductsWidgetState extends State<AllProductsWidget> {
                         ),
                       ),
                     ),
-                    Text(
-                      productModel.productName,
-                      style: TextStyle(
-                          color: const Color(0xFF505050),
-                          fontFamily: 'Poppins',
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w600),
+                    Flexible(
+                      child: Text(
+                        productModel.productName,
+                        style: TextStyle(
+                            color: const Color(0xFF505050),
+                            fontFamily: 'Poppins',
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w600),
+                      ),
                     ),
                     SizedBox(
                       height: 10.h,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(left: 13.0.w),
-                          child: Text(
-                            ' ₹ ${productModel.fullPrice}',
-                            style: TextStyle(
-                                color: const Color(0xFFCF1919),
-                                fontFamily: 'Poppins',
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w400),
+                    Flexible(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(left: 13.0.w),
+                            child: Text(
+                              ' ₹ ${productModel.fullPrice}',
+                              style: TextStyle(
+                                  color: const Color(0xFFCF1919),
+                                  fontFamily: 'Poppins',
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w400),
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          width: 30.w,
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(8.0.w),
-                          child: CircleAvatar(
-                            backgroundColor: const Color(0xFF660018),
-                            child: IconButton(
-                                icon: const Icon(Icons.add_shopping_cart,
-                                    color: Colors.white),
-                                onPressed: () async {
-                                  await addFirebaseController
-                                      .checkProductExistance(
-                                          uId: user!.uid,
-                                          productModel: productModel);
-                                }),
+                          SizedBox(
+                            width: 30.w,
                           ),
-                        )
-                      ],
+                          Padding(
+                            padding: EdgeInsets.all(8.0.w),
+                            child: CircleAvatar(
+                              backgroundColor: const Color(0xFF660018),
+                              child: IconButton(
+                                  icon: const Icon(Icons.add_shopping_cart,
+                                      color: Colors.white),
+                                  onPressed: () async {
+                                    await addFirebaseController
+                                        .checkProductExistance(
+                                            uId: user!.uid,
+                                            productModel: productModel);
+                                  }),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ],
                 ),

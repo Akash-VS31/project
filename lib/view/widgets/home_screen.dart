@@ -103,7 +103,6 @@ class _HomeScreenState extends State<HomeScreen> {
         elevation: 0,
       ),
       body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
         child: Padding(
           padding: const EdgeInsets.all(13.0),
           child: Column(
@@ -142,9 +141,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 12.h,
               ),
               SizedBox(
-                  width: 349.w,
-                  height: 115.h,
-                  child: const CategoriesWidget()),
+                  width: 349.w, height: 115.h, child: const CategoriesWidget()),
               Text(
                 'All deals',
                 textAlign: TextAlign.center,
@@ -160,7 +157,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 15.h,
               ),
               const AllProductsWidget(),
-
             ],
           ),
         ),
