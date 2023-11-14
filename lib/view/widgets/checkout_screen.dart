@@ -56,6 +56,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
           return Padding(
             padding: EdgeInsets.all(8.0.w),
             child: Card(
+              color: Colors.yellow[100],
               child: ListView.builder(
                 itemCount: cartItems.length,
                 itemBuilder: (context, index) {

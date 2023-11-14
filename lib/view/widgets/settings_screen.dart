@@ -71,7 +71,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
                           return Center(
-                              child: const CupertinoActivityIndicator()); // Loading state
+                              child:
+                                  const CupertinoActivityIndicator()); // Loading state
                         }
 
                         if (snapshot.hasError) {

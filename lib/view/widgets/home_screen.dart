@@ -48,7 +48,9 @@ class _HomeScreenState extends State<HomeScreen> {
           )),
     );
   }
-
+  late String userName = '';
+  late String imageUrl;
+  late String userEmail;
   List searchResult = [];
   void searchFromFirebase(String query) async {
     final result = await FirebaseFirestore.instance
@@ -65,7 +67,6 @@ class _HomeScreenState extends State<HomeScreen> {
   bool _isClicked = false;
   User? user = FirebaseAuth.instance.currentUser;
   final currentUser = FirebaseAuth.instance;
-  late String userName = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,16 +96,14 @@ class _HomeScreenState extends State<HomeScreen> {
         title: StreamBuilder<QuerySnapshot>(
             stream: FirebaseFirestore.instance
                 .collection("users")
-                .where("uId", arrayContains: currentUser.currentUser!.uid)
+                .where("uId", isEqualTo: currentUser.currentUser!.uid)
                 .snapshots(),
             builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
+              if (snapshot.connectionState ==
+                  ConnectionState.waiting) {
                 return Center(
-                    child: SizedBox(
-                        width: 25.w,
-                        height: 25.h,
-                        child:
-                            const CupertinoActivityIndicator())); // Loading state
+                    child:
+                    const CupertinoActivityIndicator()); // Loading state
               }
 
               if (snapshot.hasError) {
@@ -115,19 +114,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 return const Text("No data found");
                 // No data found
               }
-              final userData =
-                  snapshot.data!.docs.first.data() as Map<String, dynamic>;
+              final userData = snapshot.data!.docs.first.data()
+              as Map<String, dynamic>;
               userName = userData['username'] as String;
-              return Text(
-                'Hi, $userName',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontFamily: 'Poppins',
-                  fontSize: 15.sp,
-                  fontWeight: FontWeight.w400,
-                  height: 0.h,
-                ),
-              );
+              imageUrl = userData['userImg'
+                  ''] as String;
+              userEmail = userData['email'] as String;
+              return Container(child: Text('hi, $userName',
+                  style: TextStyle(
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w500,
+                    height: 0.h,
+                    fontFamily: 'Poppins',
+                  )),);
             }),
         backgroundColor: const Color(0xFF1F41BB),
         elevation: 0,
