@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -15,8 +16,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  Widget getTextField({required String hint, required var icons}) {
+  Widget getTextField({
+    required String hint,
+    required var icons,
+    required var controller,
+    required Function(String) onChanged,
+  }) {
     return TextFormField(
+      controller: controller,
       decoration: InputDecoration(
           prefixIcon: icons,
           border: OutlineInputBorder(
@@ -42,6 +49,20 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  List searchResult = [];
+  void searchFromFirebase(String query) async {
+    final result = await FirebaseFirestore.instance
+        .collection('products')
+        .where('productId', isEqualTo: query)
+        .get();
+
+    setState(() {
+      searchResult = result.docs.map((e) => e.data()).toList();
+    });
+  }
+
+  final _appbarTextController = TextEditingController();
+  bool _isClicked = false;
   User? user = FirebaseAuth.instance.currentUser;
   final currentUser = FirebaseAuth.instance;
   late String userName = '';
@@ -58,14 +79,23 @@ class _HomeScreenState extends State<HomeScreen> {
               Size.fromHeight(85.0.h), // Adjust the preferred height as needed
           child: Padding(
             padding: EdgeInsets.all(13.0.w),
-            child:
-                getTextField(hint: "search", icons: const Icon(Icons.search)),
+            child: getTextField(
+                hint: "search",
+                icons: Icon(Icons.search),
+                controller: _appbarTextController,
+                onChanged: (query) {
+                  setState(() {
+                    _isClicked = !_isClicked;
+                    searchFromFirebase(query);
+                  });
+                  print(searchResult);
+                }),
           ),
         ),
         title: StreamBuilder<QuerySnapshot>(
             stream: FirebaseFirestore.instance
                 .collection("users")
-                .where("uId", isEqualTo: currentUser.currentUser!.uid)
+                .where("uId", arrayContains: currentUser.currentUser!.uid)
                 .snapshots(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
@@ -108,6 +138,23 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              _isClicked
+                  ? SizedBox(
+                      height: Get.height,
+                      child: Container(
+                        color: Colors.teal,
+                        child: ListView.builder(
+                          itemCount: searchResult.length,
+                          itemBuilder: (context, index) {
+                            return ListTile(
+                              title: Text(searchResult[index]['productName']),
+                              subtitle: Text(searchResult[index]['fullPrice']),
+                            );
+                          },
+                        ),
+                      ),
+                    )
+                  : const SizedBox.shrink(),
               Text(
                 'Trending deals',
                 textAlign: TextAlign.center,
